@@ -333,10 +333,10 @@
       sortClients();
     },
     async deleteClient(id) { state.clients = state.clients.filter(c => c.id !== id); },
-    async addPayment(id, amount) {
+    async addPayment(id, amount, date) {
       const c = getClient(id); if (!c) return;
       c.payments = c.payments || [];
-      c.payments.push({ id: uid(), amount, type: 'payment', date: new Date().toISOString() });
+      c.payments.push({ id: uid(), amount, type: 'payment', date: date || new Date().toISOString() });
     },
     async updateProfile(p) { Object.assign(state.user, p); },
   };
@@ -429,10 +429,12 @@
       if (error) throw error;
       state.clients = state.clients.filter(c => c.id !== id);
     },
-    async addPayment(id, amount) {
+    async addPayment(id, amount, date) {
       const s = getSb();
+      const payload = { client_id: id, amount, type: 'payment' };
+      if (date) payload.created_at = date;
       const { data: pay, error } = await s.from('payments')
-        .insert({ client_id: id, amount, type: 'payment' })
+        .insert(payload)
         .select('id, amount, type, created_at')
         .single();
       if (error) throw error;
@@ -1184,6 +1186,8 @@
   function openPaymentModal(id) {
     const c = getClient(id); if (!c) return;
     const total = clientTotal(c), paid = clientPaid(c), rest = clientRest(c);
+    const dt = getLocalDateAndTime(null);
+
     const html = `
       ${modalHead('cash', 'var(--g-pay)', t('makePayment'), c.fullName)}
       <div class="modal-body">
@@ -1195,7 +1199,13 @@
         <div id="pay-err"></div>
         <div class="field mt-16"><label>${esc(t('payNow'))} *</label>
           <input class="input" id="pay-amount" type="number" min="0" step="1" max="${rest}" placeholder="0" /></div>
-        <button class="btn ghost sm" id="pay-full" type="button">${ic.check}<span>${esc(t('payFull'))} (${money(rest)})</span></button>
+        <button class="btn ghost block sm" id="pay-full" type="button" style="margin-bottom: 14px">${ic.check}<span>${esc(t('payFull'))} (${money(rest)})</span></button>
+        <div class="grid-2">
+          <div class="field"><label>${esc(t('date'))}</label>
+            <input class="input" id="pay-date" type="date" value="${dt.date}" /></div>
+          <div class="field"><label>${esc(t('time'))}</label>
+            <input class="input" id="pay-time" type="time" value="${dt.time}" /></div>
+        </div>
         <div class="calc-box mt-16" id="pay-preview">
           <div class="calc-row rest"><span class="lbl">${ic.wallet} ${esc(t('newRest'))}</span><span class="val">${money(rest)}</span></div>
         </div>
@@ -1215,11 +1225,22 @@
     $('#pay-full', overlay).addEventListener('click', () => { input.value = rest; updatePreview(); });
     $('#pay-save', overlay).addEventListener('click', async () => {
       const amt = Number(input.value), errBox = $('#pay-err', overlay);
+      const dateVal = $('#pay-date', overlay).value;
+      const timeVal = $('#pay-time', overlay).value;
+      
+      let customDateIso = new Date().toISOString();
+      if (dateVal) {
+        const [yr, mo, dy] = dateVal.split('-').map(Number);
+        const [hr, mn] = (timeVal || '00:00').split(':').map(Number);
+        const dateObj = new Date(yr, mo - 1, dy, hr, mn);
+        customDateIso = dateObj.toISOString();
+      }
+
       if (!amt || amt <= 0) { errBox.innerHTML = `<div class="form-err">${esc(t('errAmount'))}</div>`; return; }
       if (amt > rest + 0.001) { errBox.innerHTML = `<div class="form-err">${esc(t('errAmountMax'))}</div>`; return; }
       const saveBtn = $('#pay-save', overlay); setBusyBtn(saveBtn, true);
       try {
-        await backend().addPayment(id, Math.round(amt));
+        await backend().addPayment(id, Math.round(amt), customDateIso);
         closeModal(overlay); rerenderCurrentView(); toast(t('paymentSaved') + ' · +' + money(amt), 'success');
       } catch (e) { setBusyBtn(saveBtn, false, saveHtml); errBox.innerHTML = `<div class="form-err">${esc(t('errServer'))}</div>`; }
     });
