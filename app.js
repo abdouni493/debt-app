@@ -83,7 +83,7 @@
       reportPeriod: 'Période du rapport', allTime: 'Toutes les dates',
       totalSales: 'Ventes totales', totalCollected: 'Total encaissé',
       totalOutstanding: 'Total restant', clientsBreakdown: 'Détail par client',
-      paymentsInPeriod: 'Paiements sur la période', client: 'Client', date: 'Date',
+      paymentsInPeriod: 'Paiements sur la période', client: 'Client', date: 'Date', time: 'Heure',
       amount: 'Montant', type: 'Type', noPaymentsPeriod: 'Aucun paiement sur cette période',
       generateHint: 'Choisissez une période puis générez le rapport pour voir les détails.',
       selectPeriod: 'Sélectionnez une période',
@@ -167,7 +167,7 @@
       reportPeriod: 'فترة التقرير', allTime: 'كل الفترات',
       totalSales: 'إجمالي المبيعات', totalCollected: 'إجمالي المحصّل',
       totalOutstanding: 'إجمالي المتبقي', clientsBreakdown: 'التفصيل حسب العميل',
-      paymentsInPeriod: 'المدفوعات خلال الفترة', client: 'العميل', date: 'التاريخ',
+      paymentsInPeriod: 'المدفوعات خلال الفترة', client: 'العميل', date: 'التاريخ', time: 'الوقت',
       amount: 'المبلغ', type: 'النوع', noPaymentsPeriod: 'لا توجد مدفوعات في هذه الفترة',
       generateHint: 'اختر فترة زمنية ثم أنشئ التقرير لعرض التفاصيل.',
       selectPeriod: 'اختر فترة زمنية',
@@ -276,6 +276,21 @@
   function clientPaid(c) { return (c.payments || []).reduce((s, p) => s + (Number(p.amount) || 0), 0); }
   function clientRest(c) { return Math.max(0, clientTotal(c) - clientPaid(c)); }
   function getClient(id) { return state.clients.find(c => c.id === id); }
+  function getLocalDateAndTime(isoString) {
+    const d = isoString ? new Date(isoString) : new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    return {
+      date: `${year}-${month}-${day}`,
+      time: `${hours}:${minutes}`
+    };
+  }
+  function sortClients() {
+    state.clients.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }
 
   /* ---------------------------------------------------------
      5. BACKENDS  (offline demo + Supabase) — same async API
@@ -305,14 +320,17 @@
   const Local = {
     async load() { if (!state.clients.length) state.clients = seedClients(); },
     async createClient(d) {
-      const payments = d.initialPaid > 0 ? [{ id: uid(), amount: d.initialPaid, type: 'initial', date: new Date().toISOString() }] : [];
+      const payments = d.initialPaid > 0 ? [{ id: uid(), amount: d.initialPaid, type: 'initial', date: d.createdAt }] : [];
       state.clients.unshift({ id: uid(), fullName: d.fullName, phone: d.phone, address: d.address,
-        products: d.products.map(p => ({ ...p, id: uid() })), payments, createdAt: new Date().toISOString() });
+        products: d.products.map(p => ({ ...p, id: uid() })), payments, createdAt: d.createdAt });
+      sortClients();
     },
     async updateClient(id, d) {
       const c = getClient(id); if (!c) return;
       c.fullName = d.fullName; c.phone = d.phone; c.address = d.address;
       c.products = d.products.map(p => ({ ...p, id: p.id || uid() }));
+      c.createdAt = d.createdAt;
+      sortClients();
     },
     async deleteClient(id) { state.clients = state.clients.filter(c => c.id !== id); },
     async addPayment(id, amount) {
@@ -340,40 +358,95 @@
     async createClient(d) {
       const s = getSb();
       const { data: client, error } = await s.from('clients')
-        .insert({ full_name: d.fullName, phone: d.phone, address: d.address }).select('id').single();
+        .insert({ full_name: d.fullName, phone: d.phone, address: d.address, created_at: d.createdAt })
+        .select('id, created_at')
+        .single();
       if (error) throw error;
+      
+      let insertedProducts = [];
       if (d.products.length) {
-        const { error: pe } = await s.from('products').insert(d.products.map(p => ({ client_id: client.id, name: p.name, description: p.description, price: p.price })));
+        const { data: prods, error: pe } = await s.from('products')
+          .insert(d.products.map(p => ({ client_id: client.id, name: p.name, description: p.description, price: p.price, created_at: d.createdAt })))
+          .select('id, name, description, price');
         if (pe) throw pe;
+        insertedProducts = (prods || []).map(p => ({ id: p.id, name: p.name, description: p.description, price: Number(p.price) }));
       }
+
+      let insertedPayments = [];
       if (d.initialPaid > 0) {
-        const { error: pe2 } = await s.from('payments').insert({ client_id: client.id, amount: d.initialPaid, type: 'initial' });
+        const { data: pay, error: pe2 } = await s.from('payments')
+          .insert({ client_id: client.id, amount: d.initialPaid, type: 'initial', created_at: d.createdAt })
+          .select('id, amount, type, created_at')
+          .single();
         if (pe2) throw pe2;
+        insertedPayments = [{ id: pay.id, amount: Number(pay.amount), type: pay.type, date: pay.created_at }];
       }
-      await this.load();
+
+      const newClient = {
+        id: client.id,
+        fullName: d.fullName,
+        phone: d.phone,
+        address: d.address,
+        createdAt: client.created_at,
+        products: insertedProducts,
+        payments: insertedPayments
+      };
+      state.clients.unshift(newClient);
+      sortClients();
     },
     async updateClient(id, d) {
       const s = getSb();
-      const { error } = await s.from('clients').update({ full_name: d.fullName, phone: d.phone, address: d.address }).eq('id', id);
+      const { error } = await s.from('clients')
+        .update({ full_name: d.fullName, phone: d.phone, address: d.address, created_at: d.createdAt })
+        .eq('id', id);
       if (error) throw error;
-      await s.from('products').delete().eq('client_id', id);
+
+      const { error: de } = await s.from('products').delete().eq('client_id', id);
+      if (de) throw de;
+
+      let insertedProducts = [];
       if (d.products.length) {
-        const { error: pe } = await s.from('products').insert(d.products.map(p => ({ client_id: id, name: p.name, description: p.description, price: p.price })));
+        const { data: prods, error: pe } = await s.from('products')
+          .insert(d.products.map(p => ({ client_id: id, name: p.name, description: p.description, price: p.price, created_at: d.createdAt })))
+          .select('id, name, description, price');
         if (pe) throw pe;
+        insertedProducts = (prods || []).map(p => ({ id: p.id, name: p.name, description: p.description, price: Number(p.price) }));
       }
-      await this.load();
+
+      const c = getClient(id);
+      if (c) {
+        c.fullName = d.fullName;
+        c.phone = d.phone;
+        c.address = d.address;
+        c.createdAt = d.createdAt;
+        c.products = insertedProducts;
+      }
+      sortClients();
     },
     async deleteClient(id) {
       const s = getSb();
       const { error } = await s.from('clients').delete().eq('id', id);
       if (error) throw error;
-      await this.load();
+      state.clients = state.clients.filter(c => c.id !== id);
     },
     async addPayment(id, amount) {
       const s = getSb();
-      const { error } = await s.from('payments').insert({ client_id: id, amount, type: 'payment' });
+      const { data: pay, error } = await s.from('payments')
+        .insert({ client_id: id, amount, type: 'payment' })
+        .select('id, amount, type, created_at')
+        .single();
       if (error) throw error;
-      await this.load();
+
+      const c = getClient(id);
+      if (c) {
+        c.payments = c.payments || [];
+        c.payments.push({
+          id: pay.id,
+          amount: Number(pay.amount),
+          type: pay.type,
+          date: pay.created_at
+        });
+      }
     },
     async updateProfile(p) {
       const s = getSb();
@@ -459,11 +532,7 @@
             </button>
           </form>
 
-          <div class="auth-demo">
-            <div class="divider-or">${esc(t('or'))}</div>
-            <p>${esc(t('demoTitle'))} · ${esc(t('demoRole'))}</p>
-            <button id="demo-btn" class="btn violet block">${ic.eye}<span>${esc(t('demoBtn'))}</span></button>
-          </div>
+
         </div>
       </div>`;
     bindAuth();
@@ -502,7 +571,8 @@
   function bindAuth() {
     document.querySelectorAll('.lang-switch button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
     document.querySelectorAll('.auth-tabs button').forEach(b => b.addEventListener('click', () => { state.authMode = b.dataset.mode; renderAuth(); }));
-    $('#demo-btn').addEventListener('click', enterDemo);
+    const demoBtn = $('#demo-btn');
+    if (demoBtn) demoBtn.addEventListener('click', enterDemo);
     $('#auth-form').addEventListener('submit', onAuthSubmit);
   }
 
@@ -801,10 +871,16 @@
           <input id="client-search" placeholder="${esc(t('searchClients'))}" value="${esc(state.search)}" /></div>
         <button class="btn" id="add-client-btn">${ic.plus}<span>${esc(t('newClient'))}</span></button>
       </div>
-      ${filtered.length ? `<div class="client-grid">${filtered.map(clientCard).join('')}</div>`
-        : (clients.length ? emptyState('search', t('noResults'), t('noResultsSub'), false)
-                          : emptyState('users', t('noClients'), t('noClientsSub'), true))}
+      <div id="clients-list-container">
+        ${renderClientsGridContent(filtered, clients.length)}
+      </div>
     </div>`;
+  }
+
+  function renderClientsGridContent(filtered, totalCount) {
+    return filtered.length ? `<div class="client-grid">${filtered.map(clientCard).join('')}</div>`
+      : (totalCount ? emptyState('search', t('noResults'), t('noResultsSub'), false)
+                    : emptyState('users', t('noClients'), t('noClientsSub'), true));
   }
 
   function clientCard(c, idx) {
@@ -856,16 +932,7 @@
     </div>`;
   }
 
-  function bindClients() {
-    const search = $('#client-search');
-    if (search) search.addEventListener('input', (e) => {
-      state.search = e.target.value;
-      const c = $('#view-content');
-      c.innerHTML = viewClients(); bindClients();
-      const s = $('#client-search'); if (s) { s.focus(); s.setSelectionRange(s.value.length, s.value.length); }
-    });
-    const addBtn = $('#add-client-btn'); if (addBtn) addBtn.addEventListener('click', () => openClientModal(null));
-    const addEmpty = $('#add-client-empty'); if (addEmpty) addEmpty.addEventListener('click', () => openClientModal(null));
+  function bindClientCardActions() {
     document.querySelectorAll('[data-act]').forEach(btn => btn.addEventListener('click', () => {
       const id = btn.dataset.id, act = btn.dataset.act;
       if (act === 'view') openDetailsModal(id);
@@ -875,6 +942,27 @@
       else if (act === 'history') openHistoryModal(id);
     }));
     document.querySelectorAll('[data-open-client]').forEach(el => el.addEventListener('click', () => openDetailsModal(el.dataset.openClient)));
+    const addEmpty = $('#add-client-empty'); if (addEmpty) addEmpty.addEventListener('click', () => openClientModal(null));
+  }
+
+  function bindClients() {
+    const search = $('#client-search');
+    if (search) search.addEventListener('input', (e) => {
+      state.search = e.target.value;
+      const q = state.search.trim().toLowerCase();
+      const qDigits = q.replace(/\D/g, '');
+      const filtered = q ? state.clients.filter(c => {
+        const name = c.fullName.toLowerCase(), phone = (c.phone || '').toLowerCase();
+        return name.includes(q) || phone.includes(q) || (qDigits && phone.replace(/\D/g, '').includes(qDigits));
+      }) : state.clients;
+      const container = $('#clients-list-container');
+      if (container) {
+        container.innerHTML = renderClientsGridContent(filtered, state.clients.length);
+        bindClientCardActions();
+      }
+    });
+    const addBtn = $('#add-client-btn'); if (addBtn) addBtn.addEventListener('click', () => openClientModal(null));
+    bindClientCardActions();
   }
 
   /* ---------------------------------------------------------
@@ -914,6 +1002,7 @@
     const editing = !!id;
     const client = editing ? getClient(id) : null;
     let products = editing ? client.products.map(p => ({ ...p })) : [{ id: uid(), name: '', description: '', price: '' }];
+    const dt = getLocalDateAndTime(client ? client.createdAt : null);
 
     const html = `
       ${modalHead('users', 'var(--g-brand)', editing ? t('editClientTitle') : t('newClientTitle'), t('newClientSub'))}
@@ -928,6 +1017,12 @@
               <input class="input" id="cf-phone" placeholder="${esc(t('phonePh'))}" value="${esc(client ? client.phone : '')}" /></div>
             <div class="field"><label>${esc(t('address'))}</label>
               <input class="input" id="cf-address" placeholder="${esc(t('addressPh'))}" value="${esc(client ? client.address : '')}" /></div>
+          </div>
+          <div class="grid-2" style="margin-top: 14px">
+            <div class="field"><label>${esc(t('date'))}</label>
+              <input class="input" id="cf-date" type="date" value="${dt.date}" /></div>
+            <div class="field"><label>${esc(t('time'))}</label>
+              <input class="input" id="cf-time" type="time" value="${dt.time}" /></div>
           </div>
         </div>
         <div class="info-block">
@@ -987,6 +1082,17 @@
       const name = $('#cf-name', overlay).value.trim();
       const phone = $('#cf-phone', overlay).value.trim();
       const address = $('#cf-address', overlay).value.trim();
+      const dateVal = $('#cf-date', overlay).value;
+      const timeVal = $('#cf-time', overlay).value;
+      
+      let customDateIso = new Date().toISOString();
+      if (dateVal) {
+        const [yr, mo, dy] = dateVal.split('-').map(Number);
+        const [hr, mn] = (timeVal || '00:00').split(':').map(Number);
+        const dateObj = new Date(yr, mo - 1, dy, hr, mn);
+        customDateIso = dateObj.toISOString();
+      }
+
       const errBox = $('#cf-err', overlay);
       const showErr = (m) => { errBox.innerHTML = `<div class="form-err">${esc(m)}</div>`; };
       if (!name) return showErr(t('errName'));
@@ -999,12 +1105,12 @@
       setBusyBtn(saveBtn, true);
       try {
         if (editing) {
-          await backend().updateClient(id, { fullName: name, phone, address, products: validProds });
+          await backend().updateClient(id, { fullName: name, phone, address, products: validProds, createdAt: customDateIso });
           closeModal(overlay); rerenderCurrentView(); toast(t('clientUpdated'), 'success');
         } else {
           const total = validProds.reduce((s, p) => s + p.price, 0);
           const paid = Math.min(Number($('#cf-paid', overlay).value) || 0, total);
-          await backend().createClient({ fullName: name, phone, address, products: validProds, initialPaid: paid });
+          await backend().createClient({ fullName: name, phone, address, products: validProds, initialPaid: paid, createdAt: customDateIso });
           closeModal(overlay); rerenderCurrentView(); toast(t('clientCreated'), 'success');
         }
       } catch (e) { setBusyBtn(saveBtn, false, saveHtml); showErr(t('errServer')); }
