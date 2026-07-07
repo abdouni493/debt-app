@@ -48,6 +48,9 @@
       recentClients: 'Clients récents', recentPayments: 'Paiements récents',
       noRecentPayments: 'Aucun paiement pour le moment',
       clientsTitle: 'Clients', clientsSub: 'Gérez vos clients et leurs dettes',
+      filterAll: 'Tous', filterPaid: 'Payé', filterDebt: 'Dette',
+      filterAllTime: 'Tout le temps', filterToday: "Aujourd'hui",
+      filterMonth: 'Dernier mois', filterYear: 'Dernière année',
       newClient: 'Nouveau client', searchClients: 'Rechercher par nom ou téléphone...',
       purchases: 'Achats', total: 'Total', paid: 'Payé', rest: 'Reste',
       fullyPaid: 'Soldé', products: 'Produits',
@@ -133,6 +136,9 @@
       recentClients: 'أحدث العملاء', recentPayments: 'أحدث المدفوعات',
       noRecentPayments: 'لا توجد مدفوعات بعد',
       clientsTitle: 'العملاء', clientsSub: 'إدارة العملاء وديونهم',
+      filterAll: 'الكل', filterPaid: 'مسدّد', filterDebt: 'عليه دين',
+      filterAllTime: 'كل الأوقات', filterToday: 'اليوم',
+      filterMonth: 'الشهر الماضي', filterYear: 'السنة الماضية',
       newClient: 'عميل جديد', searchClients: 'ابحث بالاسم أو رقم الهاتف...',
       purchases: 'المشتريات', total: 'الإجمالي', paid: 'المدفوع', rest: 'المتبقي',
       fullyPaid: 'مسدّد', products: 'المنتجات',
@@ -239,6 +245,8 @@
     adminExists: null,
     view: 'dashboard',
     search: '',
+    filterStatus: 'all',
+    filterTime: 'all',
     authMode: 'login',
     sidebarOpen: false,
     busy: false,
@@ -858,31 +866,107 @@
   /* ---------------------------------------------------------
      10. CLIENTS
      --------------------------------------------------------- */
-  function viewClients() {
+  function getFilteredClients() {
     const clients = state.clients;
+    
+    // 1. Search filter
     const q = state.search.trim().toLowerCase();
     const qDigits = q.replace(/\D/g, '');
-    const filtered = q ? clients.filter(c => {
+    let filtered = q ? clients.filter(c => {
       const name = c.fullName.toLowerCase(), phone = (c.phone || '').toLowerCase();
       return name.includes(q) || phone.includes(q) || (qDigits && phone.replace(/\D/g, '').includes(qDigits));
     }) : clients;
 
+    // 2. Status filter
+    if (state.filterStatus === 'paid') {
+      filtered = filtered.filter(c => {
+        const total = clientTotal(c), rest = clientRest(c);
+        return rest <= 0 && total > 0;
+      });
+    } else if (state.filterStatus === 'debt') {
+      filtered = filtered.filter(c => clientRest(c) > 0);
+    }
+
+    // 3. Time filter
+    if (state.filterTime === 'today') {
+      const todayStr = new Date().toDateString();
+      filtered = filtered.filter(c => new Date(c.createdAt).toDateString() === todayStr);
+    } else if (state.filterTime === 'month') {
+      const limit = 30 * 24 * 60 * 60 * 1000;
+      const now = Date.now();
+      filtered = filtered.filter(c => now - new Date(c.createdAt).getTime() <= limit);
+    } else if (state.filterTime === 'year') {
+      const limit = 365 * 24 * 60 * 60 * 1000;
+      const now = Date.now();
+      filtered = filtered.filter(c => now - new Date(c.createdAt).getTime() <= limit);
+    }
+
+    return filtered;
+  }
+
+  function renderClientsSummary(filteredClients) {
+    let totalC = filteredClients.length;
+    let totalP = 0;
+    let totalR = 0;
+    
+    filteredClients.forEach(c => {
+      totalP += clientPaid(c);
+      totalR += clientRest(c);
+    });
+
+    return `
+      <div class="stat-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 22px;">
+        <div class="stat-card" style="padding: 16px; min-height: auto;">
+          <div class="stat-label" style="font-size: 12px;">${esc(t('totalClients'))}</div>
+          <div class="stat-value" style="font-size: 22px; margin-top: 2px;">${totalC}</div>
+        </div>
+        <div class="stat-card c-pay" style="padding: 16px; min-height: auto;">
+          <div class="stat-label" style="font-size: 12px;">${esc(t('totalPayments'))}</div>
+          <div class="stat-value" style="font-size: 22px; margin-top: 2px;">${money(totalP)}</div>
+        </div>
+        <div class="stat-card c-debt" style="padding: 16px; min-height: auto;">
+          <div class="stat-label" style="font-size: 12px;">${esc(t('totalRemaining'))}</div>
+          <div class="stat-value" style="font-size: 22px; margin-top: 2px;">${money(totalR)}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function viewClients() {
+    const filtered = getFilteredClients();
+
     return `<div class="view">
-      <div class="toolbar">
-        <div class="search-box">${ic.search}
+      <div class="toolbar" style="gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+        <div class="search-box" style="flex: 2; min-width: 200px; margin: 0;">${ic.search}
           <input id="client-search" placeholder="${esc(t('searchClients'))}" value="${esc(state.search)}" /></div>
+        
+        <div class="filter-group" style="display: flex; gap: 6px; background: var(--surface-2); padding: 4px; border-radius: 12px; border: 1px solid var(--line);">
+          <button class="filter-status-btn btn sm ${state.filterStatus === 'all' ? '' : 'ghost'}" data-status="all" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterAll'))}</button>
+          <button class="filter-status-btn btn sm ${state.filterStatus === 'paid' ? 'money' : 'ghost'}" data-status="paid" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterPaid'))}</button>
+          <button class="filter-status-btn btn sm ${state.filterStatus === 'debt' ? 'danger' : 'ghost'}" data-status="debt" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterDebt'))}</button>
+        </div>
+
+        <div class="filter-group" style="display: flex; gap: 6px; background: var(--surface-2); padding: 4px; border-radius: 12px; border: 1px solid var(--line);">
+          <button class="filter-time-btn btn sm ${state.filterTime === 'all' ? '' : 'ghost'}" data-time="all" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterAllTime'))}</button>
+          <button class="filter-time-btn btn sm ${state.filterTime === 'today' ? 'violet' : 'ghost'}" data-time="today" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterToday'))}</button>
+          <button class="filter-time-btn btn sm ${state.filterTime === 'month' ? 'violet' : 'ghost'}" data-time="month" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterMonth'))}</button>
+          <button class="filter-time-btn btn sm ${state.filterTime === 'year' ? 'violet' : 'ghost'}" data-time="year" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterYear'))}</button>
+        </div>
+
         <button class="btn" id="add-client-btn">${ic.plus}<span>${esc(t('newClient'))}</span></button>
       </div>
       <div id="clients-list-container">
-        ${renderClientsGridContent(filtered, clients.length)}
+        ${renderClientsGridContent(filtered, state.clients.length)}
       </div>
     </div>`;
   }
 
   function renderClientsGridContent(filtered, totalCount) {
-    return filtered.length ? `<div class="client-grid">${filtered.map(clientCard).join('')}</div>`
+    const summaryHtml = renderClientsSummary(filtered);
+    const listHtml = filtered.length ? `<div class="client-grid">${filtered.map(clientCard).join('')}</div>`
       : (totalCount ? emptyState('search', t('noResults'), t('noResultsSub'), false)
                     : emptyState('users', t('noClients'), t('noClientsSub'), true));
+    return summaryHtml + listHtml;
   }
 
   function clientCard(c, idx) {
@@ -947,22 +1031,69 @@
     const addEmpty = $('#add-client-empty'); if (addEmpty) addEmpty.addEventListener('click', () => openClientModal(null));
   }
 
+  function updateFilteredClientsUI() {
+    const container = $('#clients-list-container');
+    if (container) {
+      const filtered = getFilteredClients();
+      container.innerHTML = renderClientsGridContent(filtered, state.clients.length);
+      bindClientCardActions();
+    }
+  }
+
   function bindClients() {
     const search = $('#client-search');
-    if (search) search.addEventListener('input', (e) => {
-      state.search = e.target.value;
-      const q = state.search.trim().toLowerCase();
-      const qDigits = q.replace(/\D/g, '');
-      const filtered = q ? state.clients.filter(c => {
-        const name = c.fullName.toLowerCase(), phone = (c.phone || '').toLowerCase();
-        return name.includes(q) || phone.includes(q) || (qDigits && phone.replace(/\D/g, '').includes(qDigits));
-      }) : state.clients;
-      const container = $('#clients-list-container');
-      if (container) {
-        container.innerHTML = renderClientsGridContent(filtered, state.clients.length);
-        bindClientCardActions();
-      }
+    if (search) {
+      search.addEventListener('input', (e) => {
+        state.search = e.target.value;
+        updateFilteredClientsUI();
+      });
+    }
+
+    // Status filter buttons
+    document.querySelectorAll('.filter-status-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-status-btn').forEach(b => {
+          b.classList.add('ghost');
+          b.classList.remove('money', 'danger');
+        });
+        
+        state.filterStatus = btn.dataset.status;
+        
+        if (state.filterStatus === 'all') {
+          btn.classList.remove('ghost');
+        } else if (state.filterStatus === 'paid') {
+          btn.classList.remove('ghost');
+          btn.classList.add('money');
+        } else if (state.filterStatus === 'debt') {
+          btn.classList.remove('ghost');
+          btn.classList.add('danger');
+        }
+        
+        updateFilteredClientsUI();
+      });
     });
+
+    // Time filter buttons
+    document.querySelectorAll('.filter-time-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-time-btn').forEach(b => {
+          b.classList.add('ghost');
+          b.classList.remove('violet');
+        });
+        
+        state.filterTime = btn.dataset.time;
+        
+        if (state.filterTime === 'all') {
+          btn.classList.remove('ghost');
+        } else {
+          btn.classList.remove('ghost');
+          btn.classList.add('violet');
+        }
+        
+        updateFilteredClientsUI();
+      });
+    });
+
     const addBtn = $('#add-client-btn'); if (addBtn) addBtn.addEventListener('click', () => openClientModal(null));
     bindClientCardActions();
   }
