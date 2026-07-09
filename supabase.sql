@@ -195,6 +195,65 @@ $$;
 
 grant execute on function public.get_email_by_username(text) to anon, authenticated;
 
+-- ---------------------------------------------------------------------------
+-- 10. PAYMENT-REMINDER SETTINGS ON CLIENTS  (appointments / alerts feature)
+--     appt_mode: 'interval'  = due every N days after the client's last payment
+--                'fixed_day' = due on a fixed day of every month (1–28)
+--     The app computes the alert client-side: from the LAST payment, the
+--     client is "soon to pay" a few days before the due date and "late"
+--     after it — the alert never clears until a new payment is recorded.
+-- ---------------------------------------------------------------------------
+alter table public.clients
+  add column if not exists appt_enabled       boolean not null default false,
+  add column if not exists appt_mode          text    not null default 'interval',
+  add column if not exists appt_interval_days integer not null default 30,
+  add column if not exists appt_day_of_month  integer not null default 1;
+
+do $$
+begin
+  if not exists (select 1 from pg_constraint where conname = 'clients_appt_mode_check') then
+    alter table public.clients
+      add constraint clients_appt_mode_check
+      check (appt_mode in ('interval','fixed_day'));
+  end if;
+  if not exists (select 1 from pg_constraint where conname = 'clients_appt_interval_days_check') then
+    alter table public.clients
+      add constraint clients_appt_interval_days_check
+      check (appt_interval_days > 0);
+  end if;
+  if not exists (select 1 from pg_constraint where conname = 'clients_appt_day_of_month_check') then
+    alter table public.clients
+      add constraint clients_appt_day_of_month_check
+      check (appt_day_of_month between 1 and 28);
+  end if;
+end $$;
+
+-- ---------------------------------------------------------------------------
+-- 11. APPOINTMENTS  (manual appointments: collect or give money, optional
+--     client link, scheduled date + hour, pending/done status)
+-- ---------------------------------------------------------------------------
+create table if not exists public.appointments (
+  id           uuid primary key default gen_random_uuid(),
+  owner_id     uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  client_id    uuid references public.clients (id) on delete set null,
+  title        text not null,
+  description  text,
+  direction    text not null default 'collect' check (direction in ('collect','give')),
+  scheduled_at timestamptz not null,
+  status       text not null default 'pending' check (status in ('pending','done','cancelled')),
+  created_at   timestamptz not null default now()
+);
+
+create index if not exists idx_appointments_owner  on public.appointments (owner_id);
+create index if not exists idx_appointments_client on public.appointments (client_id);
+create index if not exists idx_appointments_sched  on public.appointments (scheduled_at);
+
+alter table public.appointments enable row level security;
+
+drop policy if exists appointments_crud_own on public.appointments;
+create policy appointments_crud_own on public.appointments
+  for all using (auth.uid() = owner_id) with check (auth.uid() = owner_id);
+
 -- ============================================================================
 --  OPTIONAL — seed demo data for the CURRENTLY LOGGED-IN admin.
 --  Run this block from the SQL editor AFTER you have created your admin account

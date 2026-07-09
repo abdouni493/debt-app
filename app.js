@@ -112,6 +112,43 @@
       errAmountMax: 'Le montant dépasse le reste à payer', errEmail: 'Adresse e-mail invalide',
       errConfig: 'Connexion à Supabase non configurée', errServer: 'Erreur serveur, réessayez',
       pieces: 'article(s)', at: 'à',
+      appointments: 'Rendez-vous',
+      apptViewTitle: 'Rendez-vous', apptViewSub: 'Alertes et rendez-vous de paiement',
+      alertsCenter: 'Centre d’alertes', filterAlerts: 'Alertes',
+      alertLate: 'En retard', alertSoon: 'Bientôt',
+      lateBy: 'En retard de', dueIn: 'Échéance dans', dueToday: 'Échéance aujourd’hui',
+      daysWord: 'jour(s)', dueOn: 'Échéance le', lastPaymentLbl: 'Dernier paiement',
+      nextDue: 'Prochaine échéance', noAlerts: 'Aucune alerte',
+      noAlertsSub: 'Tout est à jour — aucun paiement en retard ou à venir.',
+      allGood: 'Tout est à jour',
+      paymentSchedule: 'Rappel de paiement (rendez-vous)',
+      enableSchedule: 'Activer le rappel de paiement',
+      scheduleModeInterval: 'Chaque X jours', scheduleModeFixed: 'Jour fixe du mois',
+      intervalDays: 'Période (jours)', dayOfMonth: 'Jour du mois (1–28)',
+      scheduleHint: 'L’alerte est calculée à partir du dernier paiement du client et reste affichée jusqu’à ce qu’il paie.',
+      scheduleEvery: 'Tous les', fixedOnDay: 'Le', fixedEachMonth: 'de chaque mois',
+      noSchedule: 'Rappel désactivé',
+      apptShort: 'RDV', apptSettings: 'Rendez-vous du client', apptHistory: 'Historique des rendez-vous',
+      newAppt: 'Nouveau rendez-vous', editAppt: 'Modifier le rendez-vous',
+      apptName: 'Nom / titre', apptNamePh: 'Ex : Encaissement mensuel',
+      apptDescPh: 'Ex : Passer à la boutique récupérer le versement',
+      apptDirection: 'Type de rendez-vous',
+      collectMoney: 'Encaisser de l’argent', giveMoney: 'Donner de l’argent',
+      linkClient: 'Client (optionnel)', searchClientPh: 'Rechercher un client existant...',
+      noClientLinked: 'Aucun client lié',
+      markDone: 'Terminer', doneLbl: 'Terminé', pendingLbl: 'En attente',
+      manualAppts: 'Rendez-vous manuels', clientAlerts: 'Alertes de paiement clients',
+      apptSaved: 'Rendez-vous enregistré', apptDoneMsg: 'Rendez-vous terminé',
+      apptDeleted: 'Rendez-vous supprimé', apptSettingsSaved: 'Paramètres du rendez-vous enregistrés',
+      errApptName: 'Le nom du rendez-vous est requis', errApptDate: 'La date est requise',
+      filterPeriod: 'Période', apply: 'Appliquer',
+      periodDetails: 'Détails de la période',
+      collectedInPeriod: 'Encaissé (période)', clientsCreated: 'Nouveaux clients',
+      salesInPeriod: 'Ventes (période)',
+      noAppts: 'Aucun rendez-vous', noApptsSub: 'Créez un rendez-vous manuel ou activez le rappel de paiement d’un client.',
+      totalPending: 'En attente',
+      confirmDeleteAppt: 'Supprimer le rendez-vous ?',
+      receive: 'Encaisser', give: 'Donner',
     },
     ar: {
       appName: 'إدارة الديون', tagline: 'إدارة الديون والعملاء',
@@ -199,6 +236,43 @@
       errAmountMax: 'المبلغ يتجاوز المتبقي للدفع', errEmail: 'البريد الإلكتروني غير صالح',
       errConfig: 'لم يتم إعداد الاتصال بـ Supabase', errServer: 'خطأ في الخادم، حاول مجدداً',
       pieces: 'منتج', at: 'الساعة',
+      appointments: 'المواعيد',
+      apptViewTitle: 'المواعيد', apptViewSub: 'تنبيهات ومواعيد الدفع',
+      alertsCenter: 'مركز التنبيهات', filterAlerts: 'تنبيهات',
+      alertLate: 'متأخر', alertSoon: 'قريباً',
+      lateBy: 'متأخر بـ', dueIn: 'يستحق خلال', dueToday: 'يستحق اليوم',
+      daysWord: 'يوم', dueOn: 'يستحق في', lastPaymentLbl: 'آخر دفعة',
+      nextDue: 'الاستحقاق القادم', noAlerts: 'لا توجد تنبيهات',
+      noAlertsSub: 'كل شيء محدّث — لا مدفوعات متأخرة أو قادمة.',
+      allGood: 'كل شيء محدّث',
+      paymentSchedule: 'تذكير الدفع (موعد)',
+      enableSchedule: 'تفعيل تذكير الدفع',
+      scheduleModeInterval: 'كل X يوم', scheduleModeFixed: 'يوم محدد من الشهر',
+      intervalDays: 'الفترة (أيام)', dayOfMonth: 'يوم الشهر (1–28)',
+      scheduleHint: 'يُحسب التنبيه من آخر دفعة للعميل ويبقى ظاهراً حتى يقوم بالدفع.',
+      scheduleEvery: 'كل', fixedOnDay: 'يوم', fixedEachMonth: 'من كل شهر',
+      noSchedule: 'التذكير معطّل',
+      apptShort: 'موعد', apptSettings: 'مواعيد العميل', apptHistory: 'سجل المواعيد',
+      newAppt: 'موعد جديد', editAppt: 'تعديل الموعد',
+      apptName: 'الاسم / العنوان', apptNamePh: 'مثال: تحصيل شهري',
+      apptDescPh: 'مثال: المرور على المحل لاستلام الدفعة',
+      apptDirection: 'نوع الموعد',
+      collectMoney: 'استلام مال', giveMoney: 'تسليم مال',
+      linkClient: 'العميل (اختياري)', searchClientPh: 'ابحث عن عميل موجود...',
+      noClientLinked: 'بدون عميل',
+      markDone: 'إنهاء', doneLbl: 'منجز', pendingLbl: 'قيد الانتظار',
+      manualAppts: 'مواعيد يدوية', clientAlerts: 'تنبيهات دفع العملاء',
+      apptSaved: 'تم حفظ الموعد', apptDoneMsg: 'تم إنهاء الموعد',
+      apptDeleted: 'تم حذف الموعد', apptSettingsSaved: 'تم حفظ إعدادات الموعد',
+      errApptName: 'اسم الموعد مطلوب', errApptDate: 'التاريخ مطلوب',
+      filterPeriod: 'فترة', apply: 'تطبيق',
+      periodDetails: 'تفاصيل الفترة',
+      collectedInPeriod: 'المحصّل (الفترة)', clientsCreated: 'عملاء جدد',
+      salesInPeriod: 'المبيعات (الفترة)',
+      noAppts: 'لا توجد مواعيد', noApptsSub: 'أنشئ موعداً يدوياً أو فعّل تذكير الدفع لعميل.',
+      totalPending: 'قيد الانتظار',
+      confirmDeleteAppt: 'حذف الموعد؟',
+      receive: 'استلام', give: 'تسليم',
     }
   };
 
@@ -231,6 +305,11 @@
     trend: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/></svg>',
     calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
     coins: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18M7 6h1v4M16.71 13.88l.7.71-2.82 2.82"/></svg>',
+    bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
+    alertTri: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4M12 17h.01"/></svg>',
+    arrDown: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12l4 4 4-4"/></svg>',
+    arrUp: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16V8M8 12l4-4 4 4"/></svg>',
+    calPlus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v4M10 16h4"/></svg>',
   };
 
   /* ---------------------------------------------------------
@@ -247,6 +326,9 @@
     search: '',
     filterStatus: 'all',
     filterTime: 'all',
+    periodStart: '',
+    periodEnd: '',
+    appointments: [],
     authMode: 'login',
     sidebarOpen: false,
     busy: false,
@@ -301,6 +383,90 @@
   }
 
   /* ---------------------------------------------------------
+     4b. APPOINTMENT / ALERT LOGIC
+     An alert is computed from the client's LAST payment (or the
+     creation date if no payment exists). It never expires on its
+     own: it only clears once the client pays again (which moves
+     the anchor date forward) or the debt reaches zero.
+     --------------------------------------------------------- */
+  const SOON_DAYS = 5;           // "soon to pay" window (days before due date)
+  const MS_DAY = 86400000;
+
+  function clientLastPaymentDate(c) {
+    const pays = c.payments || [];
+    if (!pays.length) return new Date(c.createdAt);
+    return new Date(Math.max(...pays.map(p => new Date(p.date).getTime())));
+  }
+
+  function clientNextDue(c) {
+    if (!c.apptEnabled) return null;
+    const anchor = clientLastPaymentDate(c);
+    if (c.apptMode === 'fixed') {
+      const day = Math.min(28, Math.max(1, Number(c.apptDayOfMonth) || 1));
+      let y = anchor.getFullYear(), m = anchor.getMonth();
+      let cand = new Date(y, m, day);
+      if (cand <= anchor) cand = new Date(y, m + 1, day);
+      return cand;
+    }
+    const days = Math.max(1, Number(c.apptIntervalDays) || 30);
+    return new Date(anchor.getTime() + days * MS_DAY);
+  }
+
+  // -> null | { status: 'late'|'soon', due: Date, days: number }
+  function clientAlert(c) {
+    if (!c.apptEnabled) return null;
+    if (clientRest(c) <= 0) return null;   // nothing left to pay
+    const due = clientNextDue(c);
+    if (!due) return null;
+    const diff = due - Date.now();
+    if (diff <= 0) return { status: 'late', due, days: Math.floor(-diff / MS_DAY) };
+    const daysUntil = Math.ceil(diff / MS_DAY);
+    if (daysUntil <= SOON_DAYS) return { status: 'soon', due, days: daysUntil };
+    return null;
+  }
+
+  function apptAlert(a) {
+    if (a.status !== 'pending') return null;
+    const due = new Date(a.scheduledAt);
+    const diff = due - Date.now();
+    if (diff <= 0) return { status: 'late', due, days: Math.floor(-diff / MS_DAY) };
+    const daysUntil = Math.ceil(diff / MS_DAY);
+    if (daysUntil <= SOON_DAYS) return { status: 'soon', due, days: daysUntil };
+    return null;
+  }
+
+  // All active alerts (client payment schedules + manual appointments),
+  // late first, then closest due date.
+  function getAllAlerts() {
+    const list = [];
+    state.clients.forEach(c => {
+      const al = clientAlert(c);
+      if (al) list.push({ kind: 'client', client: c, ...al });
+    });
+    (state.appointments || []).forEach(a => {
+      const al = apptAlert(a);
+      if (al) list.push({ kind: 'appt', appt: a, client: a.clientId ? getClient(a.clientId) : null, ...al });
+    });
+    list.sort((x, y) => (x.status === y.status ? x.due - y.due : (x.status === 'late' ? -1 : 1)));
+    return list;
+  }
+
+  function scheduleLabel(c) {
+    if (!c.apptEnabled) return t('noSchedule');
+    if (c.apptMode === 'fixed') return `${t('fixedOnDay')} ${Math.min(28, Math.max(1, Number(c.apptDayOfMonth) || 1))} ${t('fixedEachMonth')}`;
+    return `${t('scheduleEvery')} ${Math.max(1, Number(c.apptIntervalDays) || 30)} ${t('daysWord')}`;
+  }
+
+  function alertStatusText(al) {
+    if (al.status === 'late') {
+      return al.days === 0 ? t('dueToday') : `${t('lateBy')} ${al.days} ${t('daysWord')}`;
+    }
+    return `${t('dueIn')} ${al.days} ${t('daysWord')}`;
+  }
+
+  function getAppt(id) { return (state.appointments || []).find(a => a.id === id); }
+
+  /* ---------------------------------------------------------
      5. BACKENDS  (offline demo + Supabase) — same async API
      --------------------------------------------------------- */
   function seedClients() {
@@ -308,28 +474,47 @@
     const daysAgo = (d) => new Date(now - d * 86400000).toISOString();
     return [
       { id: uid(), fullName: 'Ahmed Benali', phone: '06 12 34 56 78', address: 'Rue Didouche Mourad, Alger', createdAt: daysAgo(40),
+        apptEnabled: true, apptMode: 'interval', apptIntervalDays: 30, apptDayOfMonth: 1,
         products: [{ id: uid(), name: 'Réfrigérateur', description: 'Modèle 300L, blanc', price: 62000 }, { id: uid(), name: 'Micro-ondes', description: '25L inox', price: 18000 }],
         payments: [{ id: uid(), amount: 30000, type: 'initial', date: daysAgo(40) }, { id: uid(), amount: 15000, type: 'payment', date: daysAgo(20) }, { id: uid(), amount: 8000, type: 'payment', date: daysAgo(6) }] },
       { id: uid(), fullName: 'Fatima Zahra', phone: '05 55 44 33 22', address: 'Cité 5 Juillet, Oran', createdAt: daysAgo(28),
+        apptEnabled: true, apptMode: 'interval', apptIntervalDays: 7, apptDayOfMonth: 1,
         products: [{ id: uid(), name: 'Machine à laver', description: '7kg, automatique', price: 55000 }],
         payments: [{ id: uid(), amount: 20000, type: 'initial', date: daysAgo(28) }, { id: uid(), amount: 15000, type: 'payment', date: daysAgo(10) }] },
       { id: uid(), fullName: 'Youssef El Amrani', phone: '07 88 99 00 11', address: 'Avenue de l’ALN, Constantine', createdAt: daysAgo(15),
+        apptEnabled: false, apptMode: 'interval', apptIntervalDays: 30, apptDayOfMonth: 1,
         products: [{ id: uid(), name: 'Téléviseur 55"', description: 'Smart TV 4K', price: 78000 }, { id: uid(), name: 'Barre de son', description: 'Bluetooth 200W', price: 22000 }],
         payments: [{ id: uid(), amount: 100000, type: 'initial', date: daysAgo(15) }] },
       { id: uid(), fullName: 'Salma Bennani', phone: '06 21 43 65 87', address: 'Hydra, Alger', createdAt: daysAgo(9),
+        apptEnabled: true, apptMode: 'fixed', apptIntervalDays: 30, apptDayOfMonth: 1,
         products: [{ id: uid(), name: 'Canapé 3 places', description: 'Tissu gris', price: 68000 }],
         payments: [{ id: uid(), amount: 25000, type: 'initial', date: daysAgo(9) }, { id: uid(), amount: 12000, type: 'payment', date: daysAgo(3) }] },
       { id: uid(), fullName: 'Karim Tazi', phone: '07 12 78 34 56', address: 'Bab Ezzouar, Alger', createdAt: daysAgo(4),
+        apptEnabled: true, apptMode: 'interval', apptIntervalDays: 5, apptDayOfMonth: 1,
         products: [{ id: uid(), name: 'Ordinateur portable', description: 'Core i5, 16Go RAM', price: 95000 }],
         payments: [{ id: uid(), amount: 40000, type: 'initial', date: daysAgo(4) }, { id: uid(), amount: 18000, type: 'payment', date: daysAgo(1) }] },
     ];
   }
 
+  function seedAppointments() {
+    const now = Date.now();
+    const inDays = (d) => new Date(now + d * 86400000).toISOString();
+    return [
+      { id: uid(), clientId: null, title: 'Payer le fournisseur Samir', description: 'Règlement de la facture du mois', direction: 'give', scheduledAt: inDays(-2), status: 'pending', createdAt: inDays(-10) },
+      { id: uid(), clientId: null, title: 'Encaissement boutique voisine', description: 'Récupérer le versement hebdomadaire', direction: 'collect', scheduledAt: inDays(2), status: 'pending', createdAt: inDays(-5) },
+    ];
+  }
+
   const Local = {
-    async load() { if (!state.clients.length) state.clients = seedClients(); },
+    async load() {
+      if (!state.clients.length) state.clients = seedClients();
+      if (!state.appointments.length) state.appointments = seedAppointments();
+    },
     async createClient(d) {
       const payments = d.initialPaid > 0 ? [{ id: uid(), amount: d.initialPaid, type: 'initial', date: d.createdAt }] : [];
       state.clients.unshift({ id: uid(), fullName: d.fullName, phone: d.phone, address: d.address,
+        apptEnabled: !!d.apptEnabled, apptMode: d.apptMode || 'interval',
+        apptIntervalDays: d.apptIntervalDays || 30, apptDayOfMonth: d.apptDayOfMonth || 1,
         products: d.products.map(p => ({ ...p, id: uid() })), payments, createdAt: d.createdAt });
       sortClients();
     },
@@ -338,7 +523,14 @@
       c.fullName = d.fullName; c.phone = d.phone; c.address = d.address;
       c.products = d.products.map(p => ({ ...p, id: p.id || uid() }));
       c.createdAt = d.createdAt;
+      c.apptEnabled = !!d.apptEnabled; c.apptMode = d.apptMode || 'interval';
+      c.apptIntervalDays = d.apptIntervalDays || 30; c.apptDayOfMonth = d.apptDayOfMonth || 1;
       sortClients();
+    },
+    async updateApptSettings(id, s) {
+      const c = getClient(id); if (!c) return;
+      c.apptEnabled = !!s.apptEnabled; c.apptMode = s.apptMode || 'interval';
+      c.apptIntervalDays = s.apptIntervalDays || 30; c.apptDayOfMonth = s.apptDayOfMonth || 1;
     },
     async deleteClient(id) { state.clients = state.clients.filter(c => c.id !== id); },
     async addPayment(id, amount, date) {
@@ -346,29 +538,73 @@
       c.payments = c.payments || [];
       c.payments.push({ id: uid(), amount, type: 'payment', date: date || new Date().toISOString() });
     },
+    async createAppointment(d) {
+      state.appointments.unshift({ id: uid(), clientId: d.clientId || null, title: d.title, description: d.description || '',
+        direction: d.direction, scheduledAt: d.scheduledAt, status: 'pending', createdAt: new Date().toISOString() });
+    },
+    async updateAppointment(id, d) {
+      const a = getAppt(id); if (!a) return;
+      Object.assign(a, d);
+    },
+    async deleteAppointment(id) { state.appointments = state.appointments.filter(a => a.id !== id); },
     async updateProfile(p) { Object.assign(state.user, p); },
   };
+
+  // Maps the app's appointment-schedule fields to the DB columns.
+  function apptCols(d) {
+    return {
+      appt_enabled: !!d.apptEnabled,
+      appt_mode: d.apptMode === 'fixed' ? 'fixed_day' : 'interval',
+      appt_interval_days: Math.max(1, Number(d.apptIntervalDays) || 30),
+      appt_day_of_month: Math.min(28, Math.max(1, Number(d.apptDayOfMonth) || 1)),
+    };
+  }
 
   const Remote = {
     async load() {
       const s = getSb(); if (!s) throw new Error('config');
-      const { data, error } = await s
-        .from('clients')
-        .select('id, full_name, phone, address, created_at, products(id,name,description,price), payments(id,amount,type,created_at)')
-        .order('created_at', { ascending: false });
-      if (error) throw error;
+      const baseCols = 'id, full_name, phone, address, created_at, products(id,name,description,price), payments(id,amount,type,created_at)';
+      const apptSel = ', appt_enabled, appt_mode, appt_interval_days, appt_day_of_month';
+      let data, error;
+      // Try with the appointment columns; fall back to the legacy schema
+      // if the SQL migration has not been run yet.
+      ({ data, error } = await s.from('clients').select(baseCols + apptSel).order('created_at', { ascending: false }));
+      if (error) {
+        ({ data, error } = await s.from('clients').select(baseCols).order('created_at', { ascending: false }));
+        if (error) throw error;
+      }
       state.clients = (data || []).map(row => ({
         id: row.id, fullName: row.full_name, phone: row.phone, address: row.address, createdAt: row.created_at,
+        apptEnabled: !!row.appt_enabled,
+        apptMode: row.appt_mode === 'fixed_day' ? 'fixed' : 'interval',
+        apptIntervalDays: Number(row.appt_interval_days) || 30,
+        apptDayOfMonth: Number(row.appt_day_of_month) || 1,
         products: (row.products || []).map(p => ({ id: p.id, name: p.name, description: p.description, price: Number(p.price) })),
         payments: (row.payments || []).map(p => ({ id: p.id, amount: Number(p.amount), type: p.type, date: p.created_at })),
       }));
+      // Appointments table may not exist before the migration — don't break the app.
+      try {
+        const { data: appts, error: ae } = await s.from('appointments').select('*').order('scheduled_at', { ascending: true });
+        state.appointments = ae ? [] : (appts || []).map(a => ({
+          id: a.id, clientId: a.client_id, title: a.title, description: a.description || '',
+          direction: a.direction, scheduledAt: a.scheduled_at, status: a.status, createdAt: a.created_at,
+        }));
+      } catch (e) { state.appointments = []; }
     },
     async createClient(d) {
       const s = getSb();
-      const { data: client, error } = await s.from('clients')
-        .insert({ full_name: d.fullName, phone: d.phone, address: d.address, created_at: d.createdAt })
+      let res = await s.from('clients')
+        .insert({ full_name: d.fullName, phone: d.phone, address: d.address, created_at: d.createdAt, ...apptCols(d) })
         .select('id, created_at')
         .single();
+      if (res.error) {
+        // legacy schema fallback (migration not run yet)
+        res = await s.from('clients')
+          .insert({ full_name: d.fullName, phone: d.phone, address: d.address, created_at: d.createdAt })
+          .select('id, created_at')
+          .single();
+      }
+      const { data: client, error } = res;
       if (error) throw error;
       
       let insertedProducts = [];
@@ -396,6 +632,10 @@
         phone: d.phone,
         address: d.address,
         createdAt: client.created_at,
+        apptEnabled: !!d.apptEnabled,
+        apptMode: d.apptMode || 'interval',
+        apptIntervalDays: d.apptIntervalDays || 30,
+        apptDayOfMonth: d.apptDayOfMonth || 1,
         products: insertedProducts,
         payments: insertedPayments
       };
@@ -404,9 +644,14 @@
     },
     async updateClient(id, d) {
       const s = getSb();
-      const { error } = await s.from('clients')
-        .update({ full_name: d.fullName, phone: d.phone, address: d.address, created_at: d.createdAt })
+      let { error } = await s.from('clients')
+        .update({ full_name: d.fullName, phone: d.phone, address: d.address, created_at: d.createdAt, ...apptCols(d) })
         .eq('id', id);
+      if (error) {
+        ({ error } = await s.from('clients')
+          .update({ full_name: d.fullName, phone: d.phone, address: d.address, created_at: d.createdAt })
+          .eq('id', id));
+      }
       if (error) throw error;
 
       const { error: de } = await s.from('products').delete().eq('client_id', id);
@@ -428,8 +673,55 @@
         c.address = d.address;
         c.createdAt = d.createdAt;
         c.products = insertedProducts;
+        c.apptEnabled = !!d.apptEnabled;
+        c.apptMode = d.apptMode || 'interval';
+        c.apptIntervalDays = d.apptIntervalDays || 30;
+        c.apptDayOfMonth = d.apptDayOfMonth || 1;
       }
       sortClients();
+    },
+    async updateApptSettings(id, s0) {
+      const s = getSb();
+      const { error } = await s.from('clients').update(apptCols(s0)).eq('id', id);
+      if (error) throw error;
+      const c = getClient(id);
+      if (c) {
+        c.apptEnabled = !!s0.apptEnabled;
+        c.apptMode = s0.apptMode || 'interval';
+        c.apptIntervalDays = s0.apptIntervalDays || 30;
+        c.apptDayOfMonth = s0.apptDayOfMonth || 1;
+      }
+    },
+    async createAppointment(d) {
+      const s = getSb();
+      const { data: a, error } = await s.from('appointments')
+        .insert({ client_id: d.clientId || null, title: d.title, description: d.description || '',
+          direction: d.direction, scheduled_at: d.scheduledAt })
+        .select('*')
+        .single();
+      if (error) throw error;
+      state.appointments.unshift({ id: a.id, clientId: a.client_id, title: a.title, description: a.description || '',
+        direction: a.direction, scheduledAt: a.scheduled_at, status: a.status, createdAt: a.created_at });
+    },
+    async updateAppointment(id, d) {
+      const s = getSb();
+      const patch = {};
+      if (d.title !== undefined) patch.title = d.title;
+      if (d.description !== undefined) patch.description = d.description;
+      if (d.direction !== undefined) patch.direction = d.direction;
+      if (d.scheduledAt !== undefined) patch.scheduled_at = d.scheduledAt;
+      if (d.clientId !== undefined) patch.client_id = d.clientId || null;
+      if (d.status !== undefined) patch.status = d.status;
+      const { error } = await s.from('appointments').update(patch).eq('id', id);
+      if (error) throw error;
+      const a = getAppt(id);
+      if (a) Object.assign(a, d);
+    },
+    async deleteAppointment(id) {
+      const s = getSb();
+      const { error } = await s.from('appointments').delete().eq('id', id);
+      if (error) throw error;
+      state.appointments = state.appointments.filter(a => a.id !== id);
     },
     async deleteClient(id) {
       const s = getSb();
@@ -658,12 +950,13 @@
     state.user = { id: 'demo', fullName: 'Compte Démo', username: 'demo', email: 'demo@gestdette.app', role: 'admin' };
     state.view = 'dashboard';
     state.clients = [];
+    state.appointments = [];
     Local.load().then(() => { render(); setTimeout(() => toast(`${t('welcome')} 👋 · ${t('demoMode')}`, 'info'), 150); });
   }
 
   async function logout() {
     if (!state.demo) { const s = getSb(); if (s) { try { await s.auth.signOut(); } catch (e) {} } }
-    state.demo = false; state.user = null; state.clients = [];
+    state.demo = false; state.user = null; state.clients = []; state.appointments = [];
     state.authMode = 'login';
     await refreshAdminExists();
     render();
@@ -683,15 +976,32 @@
   const NAV = [
     { id: 'dashboard', icon: 'grid', label: 'dashboard' },
     { id: 'clients', icon: 'users', label: 'clients' },
+    { id: 'appointments', icon: 'calendar', label: 'appointments' },
     { id: 'reports', icon: 'report', label: 'reports' },
     { id: 'settings', icon: 'gear', label: 'settings' },
   ];
   const VIEW_META = {
     dashboard: { title: 'dashTitle', sub: 'dashSub' },
     clients: { title: 'clientsTitle', sub: 'clientsSub' },
+    appointments: { title: 'apptViewTitle', sub: 'apptViewSub' },
     reports: { title: 'reportsTitle', sub: 'reportsSub' },
     settings: { title: 'settingsTitle', sub: 'settingsSub' },
   };
+  function navBadge(navId) {
+    if (navId !== 'appointments') return '';
+    const n = getAllAlerts().length;
+    return n ? `<span class="nav-badge">${n}</span>` : '';
+  }
+  function refreshNavBadges() {
+    const n = getAllAlerts().length;
+    document.querySelectorAll('[data-nav="appointments"]').forEach(el => {
+      let b = el.querySelector('.nav-badge');
+      if (n) {
+        if (!b) { b = document.createElement('span'); b.className = 'nav-badge'; el.appendChild(b); }
+        b.textContent = n;
+      } else if (b) b.remove();
+    });
+  }
 
   function renderShell() {
     const u = state.user;
@@ -706,7 +1016,7 @@
           <nav class="nav">
             ${NAV.map((n, i) => `
               <a class="nav-item ${state.view === n.id ? 'active' : ''}" data-nav="${n.id}" style="--i:${i}">
-                ${ic[n.icon]}<span>${esc(t(n.label))}</span>
+                ${ic[n.icon]}<span>${esc(t(n.label))}</span>${navBadge(n.id)}
               </a>`).join('')}
           </nav>
           <div class="sidebar-user">
@@ -734,7 +1044,7 @@
         </main>
 
         <nav class="bottom-nav">
-          ${NAV.map(n => `<a class="bn-item ${state.view === n.id ? 'active' : ''}" data-nav="${n.id}">${ic[n.icon]}<span>${esc(t(n.label))}</span></a>`).join('')}
+          ${NAV.map(n => `<a class="bn-item ${state.view === n.id ? 'active' : ''}" data-nav="${n.id}">${ic[n.icon]}<span>${esc(t(n.label))}</span>${navBadge(n.id)}</a>`).join('')}
         </nav>
       </div>`;
 
@@ -768,18 +1078,90 @@
     const meta = VIEW_META[state.view];
     $('#page-title').innerHTML = `<h2>${esc(t(meta.title))}</h2><p>${esc(t(meta.sub))}</p>`;
     const c = $('#view-content');
-    if (state.view === 'dashboard') { c.innerHTML = viewDashboard(); animateCounters(); }
+    if (state.view === 'dashboard') { c.innerHTML = viewDashboard(); animateCounters(); bindDashboard(); }
     else if (state.view === 'clients') { c.innerHTML = viewClients(); bindClients(); }
+    else if (state.view === 'appointments') { c.innerHTML = viewAppointments(); bindAppointments(); }
     else if (state.view === 'reports') { c.innerHTML = viewReports(); bindReports(); }
     else if (state.view === 'settings') { c.innerHTML = viewSettings(); bindSettings(); }
+    refreshNavBadges();
     const content = $('.content'); if (content) content.scrollTop = 0;
   }
 
   function rerenderCurrentView() {
     const c = $('#view-content'); if (!c) return;
     if (state.view === 'clients') { c.innerHTML = viewClients(); bindClients(); }
-    else if (state.view === 'dashboard') { c.innerHTML = viewDashboard(); animateCounters(); }
+    else if (state.view === 'dashboard') { c.innerHTML = viewDashboard(); animateCounters(); bindDashboard(); }
+    else if (state.view === 'appointments') { c.innerHTML = viewAppointments(); bindAppointments(); }
     else if (state.view === 'reports' && state._rpGenerated) { const r = $('#rp-results'); if (r) r.innerHTML = reportResults(); }
+    refreshNavBadges();
+  }
+
+  /* ---------------------------------------------------------
+     8b. ALERT ROWS (shared by dashboard + appointments view)
+     --------------------------------------------------------- */
+  function alertRowHTML(al) {
+    const isLate = al.status === 'late';
+    if (al.kind === 'client') {
+      const c = al.client;
+      return `
+        <div class="alert-row ${isLate ? 'late' : 'soon'}">
+          <div class="al-ic">${isLate ? ic.alertTri : ic.bell}</div>
+          <div class="al-main">
+            <div class="al-name">${esc(c.fullName)}
+              <span class="tag ${isLate ? 'red' : 'amber'}">${esc(isLate ? t('alertLate') : t('alertSoon'))}</span></div>
+            <div class="al-sub">${ic.phone}<span>${esc(c.phone || '—')}</span> · <span>${esc(scheduleLabel(c))}</span></div>
+            <div class="al-meta">
+              <span class="al-status ${isLate ? 'late' : 'soon'}">${esc(alertStatusText(al))}</span>
+              <span>${esc(t('dueOn'))} ${esc(fmtDate(al.due))}</span>
+              <span>${esc(t('rest'))} : <b>${money(clientRest(c))}</b></span>
+              <span>${esc(t('lastPaymentLbl'))} : ${esc(fmtDate(clientLastPaymentDate(c)))}</span>
+            </div>
+          </div>
+          <div class="al-actions">
+            <button class="btn pay sm" data-al-pay="${c.id}">${ic.cash}<span>${esc(t('payment'))}</span></button>
+            <button class="btn ghost icon sm" data-al-view="${c.id}" title="${esc(t('view'))}">${ic.eye}</button>
+            <button class="btn ghost icon sm" data-al-appt="${c.id}" title="${esc(t('apptShort'))}">${ic.calendar}</button>
+          </div>
+        </div>`;
+    }
+    const a = al.appt;
+    const collect = a.direction === 'collect';
+    return `
+      <div class="alert-row ${isLate ? 'late' : 'soon'}">
+        <div class="al-ic ${collect ? 'collect' : 'give'}">${collect ? ic.arrDown : ic.arrUp}</div>
+        <div class="al-main">
+          <div class="al-name">${esc(a.title)}
+            <span class="tag ${isLate ? 'red' : 'amber'}">${esc(isLate ? t('alertLate') : t('alertSoon'))}</span>
+            <span class="tag ${collect ? 'green' : 'violet'}">${esc(collect ? t('receive') : t('give'))}</span></div>
+          <div class="al-sub">${al.client ? `${ic.user}<span>${esc(al.client.fullName)}</span>${a.description ? ' · ' : ''}` : ''}<span>${esc(a.description || '')}</span></div>
+          <div class="al-meta">
+            <span class="al-status ${isLate ? 'late' : 'soon'}">${esc(alertStatusText(al))}</span>
+            <span>${ic.clock}${esc(fmtDateTime(a.scheduledAt))}</span>
+          </div>
+        </div>
+        <div class="al-actions">
+          <button class="btn money sm" data-al-done="${a.id}">${ic.check}<span>${esc(t('markDone'))}</span></button>
+          <button class="btn ghost icon sm" data-al-edit="${a.id}" title="${esc(t('edit'))}">${ic.pencil}</button>
+        </div>
+      </div>`;
+  }
+
+  function bindAlertRows() {
+    document.querySelectorAll('[data-al-pay]').forEach(b => b.addEventListener('click', () => openPaymentModal(b.dataset.alPay)));
+    document.querySelectorAll('[data-al-view]').forEach(b => b.addEventListener('click', () => openDetailsModal(b.dataset.alView)));
+    document.querySelectorAll('[data-al-appt]').forEach(b => b.addEventListener('click', () => openClientApptModal(b.dataset.alAppt)));
+    document.querySelectorAll('[data-al-done]').forEach(b => b.addEventListener('click', async () => {
+      try { await backend().updateAppointment(b.dataset.alDone, { status: 'done' }); rerenderCurrentView(); toast(t('apptDoneMsg'), 'success'); }
+      catch (e) { toast(t('errServer'), 'err'); }
+    }));
+    document.querySelectorAll('[data-al-edit]').forEach(b => b.addEventListener('click', () => openAppointmentModal(b.dataset.alEdit)));
+  }
+
+  function alertsPanelHTML(alerts) {
+    return `<div class="alert-panel">
+      ${alerts.length ? alerts.map(alertRowHTML).join('')
+        : `<div class="all-good">${ic.checkCircle}<div><b>${esc(t('allGood'))}</b><p>${esc(t('noAlertsSub'))}</p></div></div>`}
+    </div>`;
   }
 
   /* ---------------------------------------------------------
@@ -804,6 +1186,11 @@
         <div class="stat-foot">${ic.trend} ${esc(foot)}</div>
       </div>`;
 
+    const alerts = getAllAlerts();
+    const lateN = alerts.filter(a => a.status === 'late').length;
+    const soonN = alerts.filter(a => a.status === 'soon').length;
+    const apptN = alerts.filter(a => a.kind === 'appt').length;
+
     return `<div class="view">
       <div class="stat-grid">
         ${statCard('c-clients', 'users', t('totalClients'), clients.length, `${clients.length} ${t('registeredClients')}`, false)}
@@ -811,6 +1198,14 @@
         ${statCard('c-pay', 'cash', t('totalPayments'), totalPaid, t('amountCollected'), true)}
         ${statCard('c-out', 'wallet', t('totalRemaining'), totalRest, t('stillOwed'), true)}
       </div>
+      <div class="section-title alert-title"><span class="bar" style="background:var(--g-danger)"></span>${esc(t('alertsCenter'))}
+        <span class="count-pills">
+          <span class="cpill red">${lateN} ${esc(t('alertLate'))}</span>
+          <span class="cpill amber">${soonN} ${esc(t('alertSoon'))}</span>
+          <span class="cpill blue">${apptN} ${esc(t('appointments'))}</span>
+        </span>
+      </div>
+      ${alertsPanelHTML(alerts)}
       <div class="dash-2col">
         <div>
           <div class="section-title"><span class="bar"></span>${esc(t('recentClients'))}</div>
@@ -838,6 +1233,11 @@
     </div>`;
   }
   function emptyMini(msg) { return `<div style="padding:34px 16px;text-align:center;color:var(--ink-3);font-size:14px">${esc(msg)}</div>`; }
+
+  function bindDashboard() {
+    document.querySelectorAll('[data-open-client]').forEach(el => el.addEventListener('click', () => openDetailsModal(el.dataset.openClient)));
+    bindAlertRows();
+  }
 
   function animateCounters() {
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -885,6 +1285,8 @@
       });
     } else if (state.filterStatus === 'debt') {
       filtered = filtered.filter(c => clientRest(c) > 0);
+    } else if (state.filterStatus === 'alerts') {
+      filtered = filtered.filter(c => clientAlert(c));
     }
 
     // 3. Time filter
@@ -899,23 +1301,59 @@
       const limit = 365 * 24 * 60 * 60 * 1000;
       const now = Date.now();
       filtered = filtered.filter(c => now - new Date(c.createdAt).getTime() <= limit);
+    } else if (state.filterTime === 'period' && (state.periodStart || state.periodEnd)) {
+      const inR = periodRangeChecker();
+      // A client belongs to the period if it was created in it OR paid in it.
+      filtered = filtered.filter(c => inR(c.createdAt) || (c.payments || []).some(p => inR(p.date)));
     }
 
     return filtered;
+  }
+
+  function periodRangeChecker() {
+    const start = state.periodStart ? new Date(state.periodStart + 'T00:00:00') : null;
+    const end = state.periodEnd ? new Date(state.periodEnd + 'T23:59:59') : null;
+    return (iso) => {
+      const d = new Date(iso);
+      if (start && d < start) return false;
+      if (end && d > end) return false;
+      return true;
+    };
   }
 
   function renderClientsSummary(filteredClients) {
     let totalC = filteredClients.length;
     let totalP = 0;
     let totalR = 0;
-    
+
     filteredClients.forEach(c => {
       totalP += clientPaid(c);
       totalR += clientRest(c);
     });
 
-    return `
-      <div class="stat-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 22px;">
+    const isPeriod = state.filterTime === 'period' && (state.periodStart || state.periodEnd);
+    let periodCards = '';
+    if (isPeriod) {
+      const inR = periodRangeChecker();
+      let collected = 0, created = 0, sales = 0;
+      filteredClients.forEach(c => {
+        (c.payments || []).forEach(p => { if (inR(p.date)) collected += Number(p.amount) || 0; });
+        if (inR(c.createdAt)) { created++; sales += clientTotal(c); }
+      });
+      const label = `${state.periodStart ? fmtDate(state.periodStart) : '…'} → ${state.periodEnd ? fmtDate(state.periodEnd) : '…'}`;
+      periodCards = `
+        <div class="period-summary">
+          <div class="ps-head">${ic.calendar}<span>${esc(t('periodDetails'))} · ${esc(label)}</span></div>
+          <div class="ps-grid">
+            <div class="ps-item"><div class="ps-lbl">${esc(t('clientsCreated'))}</div><div class="ps-val">${created}</div></div>
+            <div class="ps-item green"><div class="ps-lbl">${esc(t('collectedInPeriod'))}</div><div class="ps-val">${money(collected)}</div></div>
+            <div class="ps-item blue"><div class="ps-lbl">${esc(t('salesInPeriod'))}</div><div class="ps-val">${money(sales)}</div></div>
+          </div>
+        </div>`;
+    }
+
+    return `${periodCards}
+      <div class="stat-grid" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 22px;">
         <div class="stat-card" style="padding: 16px; min-height: auto;">
           <div class="stat-label" style="font-size: 12px;">${esc(t('totalClients'))}</div>
           <div class="stat-value" style="font-size: 22px; margin-top: 2px;">${totalC}</div>
@@ -934,26 +1372,44 @@
 
   function viewClients() {
     const filtered = getFilteredClients();
+    const alertCount = state.clients.filter(c => clientAlert(c)).length;
+    const isPeriod = state.filterTime === 'period';
+
+    const stChip = (val, label, cls, icon) => `
+      <button class="fchip ${cls} ${state.filterStatus === val ? 'active' : ''}" data-status="${val}">
+        ${icon || ''}<span>${esc(label)}</span>${val === 'alerts' && alertCount ? `<span class="fchip-badge">${alertCount}</span>` : ''}
+      </button>`;
+    const tmChip = (val, label, icon) => `
+      <button class="fchip tm ${state.filterTime === val ? 'active' : ''}" data-time="${val}">
+        ${icon || ''}<span>${esc(label)}</span>
+      </button>`;
 
     return `<div class="view">
-      <div class="toolbar" style="gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
-        <div class="search-box" style="flex: 2; min-width: 200px; margin: 0;">${ic.search}
-          <input id="client-search" placeholder="${esc(t('searchClients'))}" value="${esc(state.search)}" /></div>
-        
-        <div class="filter-group" style="display: flex; gap: 6px; background: var(--surface-2); padding: 4px; border-radius: 12px; border: 1px solid var(--line);">
-          <button class="filter-status-btn btn sm ${state.filterStatus === 'all' ? '' : 'ghost'}" data-status="all" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterAll'))}</button>
-          <button class="filter-status-btn btn sm ${state.filterStatus === 'paid' ? 'money' : 'ghost'}" data-status="paid" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterPaid'))}</button>
-          <button class="filter-status-btn btn sm ${state.filterStatus === 'debt' ? 'danger' : 'ghost'}" data-status="debt" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterDebt'))}</button>
+      <div class="clients-header">
+        <div class="ch-row">
+          <div class="search-box">${ic.search}
+            <input id="client-search" placeholder="${esc(t('searchClients'))}" value="${esc(state.search)}" /></div>
+          <button class="btn" id="add-client-btn">${ic.plus}<span>${esc(t('newClient'))}</span></button>
         </div>
-
-        <div class="filter-group" style="display: flex; gap: 6px; background: var(--surface-2); padding: 4px; border-radius: 12px; border: 1px solid var(--line);">
-          <button class="filter-time-btn btn sm ${state.filterTime === 'all' ? '' : 'ghost'}" data-time="all" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterAllTime'))}</button>
-          <button class="filter-time-btn btn sm ${state.filterTime === 'today' ? 'violet' : 'ghost'}" data-time="today" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterToday'))}</button>
-          <button class="filter-time-btn btn sm ${state.filterTime === 'month' ? 'violet' : 'ghost'}" data-time="month" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterMonth'))}</button>
-          <button class="filter-time-btn btn sm ${state.filterTime === 'year' ? 'violet' : 'ghost'}" data-time="year" style="border: none; box-shadow: none; padding: 6px 12px; height: auto;">${esc(t('filterYear'))}</button>
+        <div class="chip-row">
+          ${stChip('all', t('filterAll'), 'st')}
+          ${stChip('paid', t('filterPaid'), 'st green')}
+          ${stChip('debt', t('filterDebt'), 'st red')}
+          ${stChip('alerts', t('filterAlerts'), 'st alert', ic.bell)}
+          <span class="chip-sep"></span>
+          ${tmChip('all', t('filterAllTime'))}
+          ${tmChip('today', t('filterToday'))}
+          ${tmChip('month', t('filterMonth'))}
+          ${tmChip('year', t('filterYear'))}
+          ${tmChip('period', t('filterPeriod'), ic.calendar)}
         </div>
-
-        <button class="btn" id="add-client-btn">${ic.plus}<span>${esc(t('newClient'))}</span></button>
+        <div class="period-box ${isPeriod ? '' : 'hidden'}" id="period-box">
+          <div class="field"><label>${esc(t('startDate'))}</label>
+            <input class="input" id="pf-start" type="date" value="${esc(state.periodStart)}" /></div>
+          <div class="field"><label>${esc(t('endDate'))}</label>
+            <input class="input" id="pf-end" type="date" value="${esc(state.periodEnd)}" /></div>
+          <button class="btn sm" id="pf-apply">${ic.check}<span>${esc(t('apply'))}</span></button>
+        </div>
       </div>
       <div id="clients-list-container">
         ${renderClientsGridContent(filtered, state.clients.length)}
@@ -974,10 +1430,12 @@
     const pct = total > 0 ? Math.min(100, (paid / total) * 100) : 0;
     const cleared = rest <= 0 && total > 0;
     const prods = (c.products || []);
+    const al = clientAlert(c);
     return `
-      <div class="client-card" style="animation-delay:${(idx || 0) * 0.05}s">
+      <div class="client-card ${al ? (al.status === 'late' ? 'has-late' : 'has-soon') : ''}" style="animation-delay:${(idx || 0) * 0.05}s">
         <div class="cc-head">
           ${cleared ? `<div class="paid-badge">${ic.checkCircle}${esc(t('fullyPaid'))}</div>` : ''}
+          ${al ? `<div class="alert-badge ${al.status}">${ic.bell}${esc(al.status === 'late' ? t('alertLate') : t('alertSoon'))}</div>` : ''}
           <div class="cc-top">
             <div class="avatar">${esc(initials(c.fullName))}</div>
             <div><div class="cc-name">${esc(c.fullName)}</div><div class="cc-phone">${ic.phone}${esc(c.phone || '—')}</div></div>
@@ -1004,6 +1462,7 @@
           </div>
           <div class="ca-row">
             <button class="btn violet sm" data-act="history" data-id="${c.id}" title="${esc(t('history'))}">${ic.clock}<span>${esc(t('history'))}</span></button>
+            <button class="btn debt sm appt-btn ${al ? 'has-alert' : ''}" data-act="appt" data-id="${c.id}" title="${esc(t('apptSettings'))}">${ic.calendar}<span>${esc(t('apptShort'))}</span>${al ? '<span class="dot"></span>' : ''}</button>
             <button class="btn ghost icon sm" data-act="edit" data-id="${c.id}" title="${esc(t('edit'))}">${ic.pencil}</button>
             <button class="btn ghost icon sm" data-act="delete" data-id="${c.id}" title="${esc(t('delete'))}" style="color:var(--c-danger)">${ic.trash}</button>
           </div>
@@ -1026,6 +1485,7 @@
       else if (act === 'delete') openDeleteModal(id);
       else if (act === 'pay') openPaymentModal(id);
       else if (act === 'history') openHistoryModal(id);
+      else if (act === 'appt') openClientApptModal(id);
     }));
     document.querySelectorAll('[data-open-client]').forEach(el => el.addEventListener('click', () => openDetailsModal(el.dataset.openClient)));
     const addEmpty = $('#add-client-empty'); if (addEmpty) addEmpty.addEventListener('click', () => openClientModal(null));
@@ -1049,50 +1509,35 @@
       });
     }
 
-    // Status filter buttons
-    document.querySelectorAll('.filter-status-btn').forEach(btn => {
+    // Status chips
+    document.querySelectorAll('.fchip[data-status]').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-status-btn').forEach(b => {
-          b.classList.add('ghost');
-          b.classList.remove('money', 'danger');
-        });
-        
         state.filterStatus = btn.dataset.status;
-        
-        if (state.filterStatus === 'all') {
-          btn.classList.remove('ghost');
-        } else if (state.filterStatus === 'paid') {
-          btn.classList.remove('ghost');
-          btn.classList.add('money');
-        } else if (state.filterStatus === 'debt') {
-          btn.classList.remove('ghost');
-          btn.classList.add('danger');
-        }
-        
+        document.querySelectorAll('.fchip[data-status]').forEach(b => b.classList.toggle('active', b === btn));
         updateFilteredClientsUI();
       });
     });
 
-    // Time filter buttons
-    document.querySelectorAll('.filter-time-btn').forEach(btn => {
+    // Time chips (incl. custom period)
+    document.querySelectorAll('.fchip[data-time]').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-time-btn').forEach(b => {
-          b.classList.add('ghost');
-          b.classList.remove('violet');
-        });
-        
         state.filterTime = btn.dataset.time;
-        
-        if (state.filterTime === 'all') {
-          btn.classList.remove('ghost');
-        } else {
-          btn.classList.remove('ghost');
-          btn.classList.add('violet');
-        }
-        
+        document.querySelectorAll('.fchip[data-time]').forEach(b => b.classList.toggle('active', b === btn));
+        const box = $('#period-box');
+        if (box) box.classList.toggle('hidden', state.filterTime !== 'period');
         updateFilteredClientsUI();
       });
     });
+
+    // Custom period inputs
+    const applyPeriod = () => {
+      state.periodStart = $('#pf-start') ? $('#pf-start').value : '';
+      state.periodEnd = $('#pf-end') ? $('#pf-end').value : '';
+      updateFilteredClientsUI();
+    };
+    const pfApply = $('#pf-apply'); if (pfApply) pfApply.addEventListener('click', applyPeriod);
+    const pfStart = $('#pf-start'); if (pfStart) pfStart.addEventListener('change', applyPeriod);
+    const pfEnd = $('#pf-end'); if (pfEnd) pfEnd.addEventListener('change', applyPeriod);
 
     const addBtn = $('#add-client-btn'); if (addBtn) addBtn.addEventListener('click', () => openClientModal(null));
     bindClientCardActions();
@@ -1163,6 +1608,27 @@
           <div class="prod-list" id="prod-list"></div>
           <button class="btn ghost sm" id="add-prod" type="button">${ic.plus}<span>${esc(t('addProduct'))}</span></button>
         </div>
+        <div class="info-block">
+          <div class="lbl">${esc(t('paymentSchedule'))}</div>
+          <label class="switch-row">
+            <input type="checkbox" id="cf-appt-en" ${client && client.apptEnabled ? 'checked' : ''} />
+            <span class="switch"></span>
+            <span class="switch-lbl">${esc(t('enableSchedule'))}</span>
+          </label>
+          <div id="cf-appt-opts" class="${client && client.apptEnabled ? '' : 'hidden'}">
+            <div class="seg" id="cf-appt-mode">
+              <button type="button" class="seg-btn ${!client || client.apptMode !== 'fixed' ? 'active' : ''}" data-mode="interval">${esc(t('scheduleModeInterval'))}</button>
+              <button type="button" class="seg-btn ${client && client.apptMode === 'fixed' ? 'active' : ''}" data-mode="fixed">${esc(t('scheduleModeFixed'))}</button>
+            </div>
+            <div class="grid-2" style="margin-top:12px">
+              <div class="field ${client && client.apptMode === 'fixed' ? 'hidden' : ''}" id="cf-appt-int-f"><label>${esc(t('intervalDays'))}</label>
+                <input class="input" id="cf-appt-days" type="number" min="1" step="1" value="${client ? (client.apptIntervalDays || 30) : 30}" /></div>
+              <div class="field ${client && client.apptMode === 'fixed' ? '' : 'hidden'}" id="cf-appt-dom-f"><label>${esc(t('dayOfMonth'))}</label>
+                <input class="input" id="cf-appt-dom" type="number" min="1" max="28" step="1" value="${client ? (client.apptDayOfMonth || 1) : 1}" /></div>
+            </div>
+            <p class="hint-text">${ic.bell}${esc(t('scheduleHint'))}</p>
+          </div>
+        </div>
         ${!editing ? `<div class="info-block"><div class="lbl">${esc(t('initialPayment'))}</div>
           <div class="field"><label>${esc(t('amountPaidNow'))}</label>
             <input class="input" id="cf-paid" type="number" min="0" step="1" placeholder="0" /></div></div>` : ''}
@@ -1211,6 +1677,18 @@
     $('#add-prod', overlay).addEventListener('click', () => { products.push({ id: uid(), name: '', description: '', price: '' }); renderProducts(); updateCalc(); });
     const paidInput = $('#cf-paid', overlay); if (paidInput) paidInput.addEventListener('input', updateCalc);
 
+    // Payment reminder (appointment) controls
+    let apptMode = client && client.apptMode === 'fixed' ? 'fixed' : 'interval';
+    $('#cf-appt-en', overlay).addEventListener('change', (e) => {
+      $('#cf-appt-opts', overlay).classList.toggle('hidden', !e.target.checked);
+    });
+    overlay.querySelectorAll('#cf-appt-mode .seg-btn').forEach(b => b.addEventListener('click', () => {
+      apptMode = b.dataset.mode;
+      overlay.querySelectorAll('#cf-appt-mode .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+      $('#cf-appt-int-f', overlay).classList.toggle('hidden', apptMode === 'fixed');
+      $('#cf-appt-dom-f', overlay).classList.toggle('hidden', apptMode !== 'fixed');
+    }));
+
     $('#cf-save', overlay).addEventListener('click', async () => {
       const name = $('#cf-name', overlay).value.trim();
       const phone = $('#cf-phone', overlay).value.trim();
@@ -1234,16 +1712,23 @@
         .map(p => ({ id: p.id || uid(), name: p.name.trim(), description: p.description.trim(), price: Number(p.price) }));
       if (!validProds.length) return showErr(t('errProducts'));
 
+      const apptSettings = {
+        apptEnabled: $('#cf-appt-en', overlay).checked,
+        apptMode,
+        apptIntervalDays: Math.max(1, Number($('#cf-appt-days', overlay).value) || 30),
+        apptDayOfMonth: Math.min(28, Math.max(1, Number($('#cf-appt-dom', overlay).value) || 1)),
+      };
+
       const saveBtn = $('#cf-save', overlay);
       setBusyBtn(saveBtn, true);
       try {
         if (editing) {
-          await backend().updateClient(id, { fullName: name, phone, address, products: validProds, createdAt: customDateIso });
+          await backend().updateClient(id, { fullName: name, phone, address, products: validProds, createdAt: customDateIso, ...apptSettings });
           closeModal(overlay); rerenderCurrentView(); toast(t('clientUpdated'), 'success');
         } else {
           const total = validProds.reduce((s, p) => s + p.price, 0);
           const paid = Math.min(Number($('#cf-paid', overlay).value) || 0, total);
-          await backend().createClient({ fullName: name, phone, address, products: validProds, initialPaid: paid, createdAt: customDateIso });
+          await backend().createClient({ fullName: name, phone, address, products: validProds, initialPaid: paid, createdAt: customDateIso, ...apptSettings });
           closeModal(overlay); rerenderCurrentView(); toast(t('clientCreated'), 'success');
         }
       } catch (e) { setBusyBtn(saveBtn, false, saveHtml); showErr(t('errServer')); }
@@ -1258,6 +1743,23 @@
     const total = clientTotal(c), paid = clientPaid(c), rest = clientRest(c);
     const cleared = rest <= 0 && total > 0;
     const payments = [...(c.payments || [])].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const al = clientAlert(c);
+    const due = clientNextDue(c);
+    const apptBlock = `
+      <div class="info-block"><div class="lbl">${esc(t('paymentSchedule'))}</div>
+        <div class="appt-summary ${al ? al.status : (c.apptEnabled ? 'ok' : 'off')}">
+          <div class="as-ic">${c.apptEnabled ? (al ? (al.status === 'late' ? ic.alertTri : ic.bell) : ic.checkCircle) : ic.calendar}</div>
+          <div class="as-main">
+            <div class="as-title">${esc(scheduleLabel(c))}
+              ${al ? `<span class="tag ${al.status === 'late' ? 'red' : 'amber'}">${esc(al.status === 'late' ? t('alertLate') : t('alertSoon'))}</span>` : ''}</div>
+            <div class="as-sub">
+              ${c.apptEnabled && due ? `<span>${esc(t('nextDue'))} : <b>${esc(fmtDate(due))}</b></span> · ` : ''}
+              <span>${esc(t('lastPaymentLbl'))} : ${esc(fmtDate(clientLastPaymentDate(c)))}</span>
+              ${al ? ` · <span class="as-status">${esc(alertStatusText(al))}</span>` : ''}
+            </div>
+          </div>
+        </div>
+      </div>`;
 
     const html = `
       ${modalHead('users', 'var(--g-brand)', t('detailsTitle'), '')}
@@ -1284,17 +1786,20 @@
             <div class="calc-row paid"><span class="lbl">${ic.cash} ${esc(t('paid'))}</span><span class="val">${money(paid)}</span></div>
             <div class="calc-row rest ${cleared ? 'clear' : ''}"><span class="lbl">${ic.wallet} ${esc(t('rest'))}</span><span class="val">${money(rest)}</span></div>
           </div></div>
+        ${apptBlock}
         <div class="info-block"><div class="lbl">${esc(t('latestPayments'))}</div>
           <div class="timeline">${payments.length ? payments.slice(0, 4).map(paymentTimelineItem).join('') : `<div class="text-muted" style="padding:8px">${esc(t('noPayments'))}</div>`}</div>
         </div>
       </div>
       <div class="modal-foot">
         <button class="btn ghost" data-close>${esc(t('cancel'))}</button>
+        <button class="btn debt" id="d-appt">${ic.calendar}<span>${esc(t('apptShort'))}</span></button>
         <button class="btn violet" id="d-history">${ic.clock}<span>${esc(t('history'))}</span></button>
         <button class="btn pay" id="d-pay" ${cleared ? 'disabled' : ''}>${ic.cash}<span>${esc(t('payment'))}</span></button>
       </div>`;
     const overlay = openModal(html, { size: 'wide' });
     $('#d-history', overlay).addEventListener('click', () => { closeModal(overlay); setTimeout(() => openHistoryModal(id), 160); });
+    $('#d-appt', overlay).addEventListener('click', () => { closeModal(overlay); setTimeout(() => openClientApptModal(id), 160); });
     const payBtn = $('#d-pay', overlay);
     if (payBtn && !cleared) payBtn.addEventListener('click', () => { closeModal(overlay); setTimeout(() => openPaymentModal(id), 160); });
   }
@@ -1405,6 +1910,304 @@
     const overlay = openModal(html);
     const payBtn = $('#h-pay', overlay);
     if (payBtn && !cleared) payBtn.addEventListener('click', () => { closeModal(overlay); setTimeout(() => openPaymentModal(id), 160); });
+  }
+
+  /* ---------------------------------------------------------
+     15b. CLIENT APPOINTMENT SETTINGS + HISTORY MODAL
+     --------------------------------------------------------- */
+  function miniApptRow(a) {
+    const collect = a.direction === 'collect';
+    const al = apptAlert(a);
+    const done = a.status === 'done';
+    const statusTag = done ? `<span class="tag green">${esc(t('doneLbl'))}</span>`
+      : al ? `<span class="tag ${al.status === 'late' ? 'red' : 'amber'}">${esc(al.status === 'late' ? t('alertLate') : t('alertSoon'))}</span>`
+      : `<span class="tag blue">${esc(t('pendingLbl'))}</span>`;
+    return `
+      <div class="list-row" style="padding:11px 12px">
+        <div class="mini-icon" style="background:${collect ? 'var(--g-money)' : 'var(--g-violet)'}">${collect ? ic.arrDown : ic.arrUp}</div>
+        <div class="lr-main">
+          <div class="lr-name">${esc(a.title)} ${statusTag}</div>
+          <div class="lr-sub">${esc(fmtDateTime(a.scheduledAt))}${a.description ? ' · ' + esc(a.description) : ''}</div>
+        </div>
+        <span class="tag ${collect ? 'green' : 'violet'}">${esc(collect ? t('receive') : t('give'))}</span>
+      </div>`;
+  }
+
+  function openClientApptModal(id) {
+    const c = getClient(id); if (!c) return;
+    const al = clientAlert(c);
+    const due = clientNextDue(c);
+    const clientAppts = (state.appointments || []).filter(a => a.clientId === id)
+      .sort((a, b) => new Date(b.scheduledAt) - new Date(a.scheduledAt));
+    let mode = c.apptMode === 'fixed' ? 'fixed' : 'interval';
+
+    const html = `
+      ${modalHead('calendar', 'var(--g-debt)', t('apptSettings'), c.fullName)}
+      <div class="modal-body">
+        <div id="ca-err"></div>
+        ${al ? `
+        <div class="appt-summary ${al.status}" style="margin-bottom:18px">
+          <div class="as-ic">${al.status === 'late' ? ic.alertTri : ic.bell}</div>
+          <div class="as-main">
+            <div class="as-title">${esc(alertStatusText(al))}
+              <span class="tag ${al.status === 'late' ? 'red' : 'amber'}">${esc(al.status === 'late' ? t('alertLate') : t('alertSoon'))}</span></div>
+            <div class="as-sub"><span>${esc(t('dueOn'))} <b>${esc(fmtDate(al.due))}</b></span> · <span>${esc(t('rest'))} : <b>${money(clientRest(c))}</b></span></div>
+          </div>
+        </div>` : ''}
+        <div class="info-block">
+          <div class="lbl">${esc(t('paymentSchedule'))}</div>
+          <label class="switch-row">
+            <input type="checkbox" id="ca-en" ${c.apptEnabled ? 'checked' : ''} />
+            <span class="switch"></span>
+            <span class="switch-lbl">${esc(t('enableSchedule'))}</span>
+          </label>
+          <div id="ca-opts" class="${c.apptEnabled ? '' : 'hidden'}">
+            <div class="seg" id="ca-mode">
+              <button type="button" class="seg-btn ${mode !== 'fixed' ? 'active' : ''}" data-mode="interval">${esc(t('scheduleModeInterval'))}</button>
+              <button type="button" class="seg-btn ${mode === 'fixed' ? 'active' : ''}" data-mode="fixed">${esc(t('scheduleModeFixed'))}</button>
+            </div>
+            <div class="grid-2" style="margin-top:12px">
+              <div class="field ${mode === 'fixed' ? 'hidden' : ''}" id="ca-int-f"><label>${esc(t('intervalDays'))}</label>
+                <input class="input" id="ca-days" type="number" min="1" step="1" value="${c.apptIntervalDays || 30}" /></div>
+              <div class="field ${mode === 'fixed' ? '' : 'hidden'}" id="ca-dom-f"><label>${esc(t('dayOfMonth'))}</label>
+                <input class="input" id="ca-dom" type="number" min="1" max="28" step="1" value="${c.apptDayOfMonth || 1}" /></div>
+            </div>
+            <p class="hint-text">${ic.bell}${esc(t('scheduleHint'))}</p>
+          </div>
+          <div class="calc-box" style="margin-top:14px">
+            <div class="calc-row paid"><span class="lbl">${ic.cash} ${esc(t('lastPaymentLbl'))}</span><span class="val" style="font-size:14px">${esc(fmtDate(clientLastPaymentDate(c)))}</span></div>
+            ${c.apptEnabled && due ? `<div class="calc-row rest"><span class="lbl">${ic.calendar} ${esc(t('nextDue'))}</span><span class="val" style="font-size:14px">${esc(fmtDate(due))}</span></div>` : ''}
+          </div>
+        </div>
+        <div class="info-block">
+          <div class="lbl">${esc(t('apptHistory'))} · ${clientAppts.length}</div>
+          ${clientAppts.length
+            ? `<div class="panel" style="box-shadow:none;border:1px solid var(--line);animation:none">${clientAppts.map(miniApptRow).join('')}</div>`
+            : `<div class="text-muted" style="padding:8px;font-size:13.5px">${esc(t('noAppts'))}</div>`}
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn ghost" data-close>${esc(t('cancel'))}</button>
+        <button class="btn money" id="ca-save">${ic.check}<span>${esc(t('save'))}</span></button>
+      </div>`;
+
+    const overlay = openModal(html);
+    const saveHtml = `${ic.check}<span>${esc(t('save'))}</span>`;
+
+    $('#ca-en', overlay).addEventListener('change', (e) => {
+      $('#ca-opts', overlay).classList.toggle('hidden', !e.target.checked);
+    });
+    overlay.querySelectorAll('#ca-mode .seg-btn').forEach(b => b.addEventListener('click', () => {
+      mode = b.dataset.mode;
+      overlay.querySelectorAll('#ca-mode .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+      $('#ca-int-f', overlay).classList.toggle('hidden', mode === 'fixed');
+      $('#ca-dom-f', overlay).classList.toggle('hidden', mode !== 'fixed');
+    }));
+
+    $('#ca-save', overlay).addEventListener('click', async () => {
+      const btn = $('#ca-save', overlay); setBusyBtn(btn, true);
+      try {
+        await backend().updateApptSettings(id, {
+          apptEnabled: $('#ca-en', overlay).checked,
+          apptMode: mode,
+          apptIntervalDays: Math.max(1, Number($('#ca-days', overlay).value) || 30),
+          apptDayOfMonth: Math.min(28, Math.max(1, Number($('#ca-dom', overlay).value) || 1)),
+        });
+        closeModal(overlay); rerenderCurrentView(); toast(t('apptSettingsSaved'), 'success');
+      } catch (e) {
+        setBusyBtn(btn, false, saveHtml);
+        $('#ca-err', overlay).innerHTML = `<div class="form-err">${esc(t('errServer'))}</div>`;
+      }
+    });
+  }
+
+  /* ---------------------------------------------------------
+     15c. APPOINTMENTS VIEW (sidebar)
+     --------------------------------------------------------- */
+  function apptRowHTML(a) {
+    const collect = a.direction === 'collect';
+    const cl = a.clientId ? getClient(a.clientId) : null;
+    const al = apptAlert(a);
+    const done = a.status === 'done';
+    const statusTag = done ? `<span class="tag green">${esc(t('doneLbl'))}</span>`
+      : al ? `<span class="tag ${al.status === 'late' ? 'red' : 'amber'}">${esc(al.status === 'late' ? t('alertLate') : t('alertSoon'))}</span>`
+      : `<span class="tag blue">${esc(t('pendingLbl'))}</span>`;
+    return `
+      <div class="alert-row appt-row ${done ? 'done' : (al ? al.status : '')}">
+        <div class="al-ic ${collect ? 'collect' : 'give'}">${collect ? ic.arrDown : ic.arrUp}</div>
+        <div class="al-main">
+          <div class="al-name">${esc(a.title)}
+            <span class="tag ${collect ? 'green' : 'violet'}">${esc(collect ? t('receive') : t('give'))}</span>
+            ${statusTag}</div>
+          ${a.description ? `<div class="al-sub"><span>${esc(a.description)}</span></div>` : ''}
+          <div class="al-meta">
+            <span>${ic.user}${esc(cl ? cl.fullName : t('noClientLinked'))}</span>
+            <span>${ic.clock}${esc(fmtDateTime(a.scheduledAt))}</span>
+            ${al ? `<span class="al-status ${al.status}">${esc(alertStatusText(al))}</span>` : ''}
+          </div>
+        </div>
+        <div class="al-actions">
+          ${!done ? `<button class="btn money sm" data-ap-done="${a.id}">${ic.check}<span>${esc(t('markDone'))}</span></button>` : ''}
+          <button class="btn ghost icon sm" data-ap-edit="${a.id}" title="${esc(t('edit'))}">${ic.pencil}</button>
+          <button class="btn ghost icon sm" data-ap-del="${a.id}" title="${esc(t('delete'))}" style="color:var(--c-danger)">${ic.trash}</button>
+        </div>
+      </div>`;
+  }
+
+  function viewAppointments() {
+    const alerts = getAllAlerts();
+    const lateN = alerts.filter(a => a.status === 'late').length;
+    const soonN = alerts.filter(a => a.status === 'soon').length;
+    const appts = [...(state.appointments || [])].sort((a, b) => new Date(a.scheduledAt) - new Date(b.scheduledAt));
+    const pendingN = appts.filter(a => a.status === 'pending').length;
+
+    return `<div class="view">
+      <div class="clients-header">
+        <div class="ch-row">
+          <div class="chip-row" style="flex:1;margin:0">
+            <span class="cpill red lg">${ic.alertTri}${lateN} ${esc(t('alertLate'))}</span>
+            <span class="cpill amber lg">${ic.bell}${soonN} ${esc(t('alertSoon'))}</span>
+            <span class="cpill blue lg">${ic.calendar}${pendingN} ${esc(t('totalPending'))}</span>
+          </div>
+          <button class="btn" id="add-appt-btn">${ic.calPlus}<span>${esc(t('newAppt'))}</span></button>
+        </div>
+      </div>
+      <div class="section-title"><span class="bar" style="background:var(--g-danger)"></span>${esc(t('alertsCenter'))} · ${alerts.length}</div>
+      ${alertsPanelHTML(alerts)}
+      <div class="section-title"><span class="bar" style="background:var(--g-violet)"></span>${esc(t('manualAppts'))} · ${appts.length}</div>
+      <div class="alert-panel">
+        ${appts.length ? appts.map(apptRowHTML).join('')
+          : `<div class="empty-state" style="padding:44px 16px"><div class="ei">${ic.calendar}</div><h3>${esc(t('noAppts'))}</h3><p>${esc(t('noApptsSub'))}</p></div>`}
+      </div>
+    </div>`;
+  }
+
+  function bindAppointments() {
+    const addBtn = $('#add-appt-btn'); if (addBtn) addBtn.addEventListener('click', () => openAppointmentModal(null));
+    bindAlertRows();
+    document.querySelectorAll('[data-ap-done]').forEach(b => b.addEventListener('click', async () => {
+      try { await backend().updateAppointment(b.dataset.apDone, { status: 'done' }); rerenderCurrentView(); toast(t('apptDoneMsg'), 'success'); }
+      catch (e) { toast(t('errServer'), 'err'); }
+    }));
+    document.querySelectorAll('[data-ap-edit]').forEach(b => b.addEventListener('click', () => openAppointmentModal(b.dataset.apEdit)));
+    document.querySelectorAll('[data-ap-del]').forEach(b => b.addEventListener('click', () => openDeleteApptModal(b.dataset.apDel)));
+  }
+
+  /* ---------------------------------------------------------
+     15d. MANUAL APPOINTMENT CREATE / EDIT MODAL
+     --------------------------------------------------------- */
+  function openAppointmentModal(id) {
+    const editing = !!id;
+    const a = editing ? getAppt(id) : null;
+    if (editing && !a) return;
+    let direction = a ? a.direction : 'collect';
+    let selectedClientId = a ? (a.clientId || null) : null;
+    const dt = getLocalDateAndTime(a ? a.scheduledAt : null);
+    const selClient = selectedClientId ? getClient(selectedClientId) : null;
+
+    const html = `
+      ${modalHead('calPlus', 'var(--g-debt)', editing ? t('editAppt') : t('newAppt'), '')}
+      <div class="modal-body">
+        <div id="ap-err"></div>
+        <div class="field"><label>${esc(t('apptDirection'))}</label>
+          <div class="seg" id="ap-dir">
+            <button type="button" class="seg-btn collect ${direction === 'collect' ? 'active' : ''}" data-dir="collect">${ic.arrDown}<span>${esc(t('collectMoney'))}</span></button>
+            <button type="button" class="seg-btn give ${direction === 'give' ? 'active' : ''}" data-dir="give">${ic.arrUp}<span>${esc(t('giveMoney'))}</span></button>
+          </div>
+        </div>
+        <div class="field"><label>${esc(t('apptName'))} *</label>
+          <input class="input" id="ap-title" placeholder="${esc(t('apptNamePh'))}" value="${esc(a ? a.title : '')}" /></div>
+        <div class="field"><label>${esc(t('description'))}</label>
+          <textarea class="input" id="ap-desc" placeholder="${esc(t('apptDescPh'))}">${esc(a ? a.description : '')}</textarea></div>
+        <div class="field" style="position:relative"><label>${esc(t('linkClient'))}</label>
+          <input class="input" id="ap-client" placeholder="${esc(t('searchClientPh'))}" value="${esc(selClient ? selClient.fullName : '')}" autocomplete="off" />
+          <div class="suggest hidden" id="ap-suggest"></div></div>
+        <div class="grid-2">
+          <div class="field"><label>${esc(t('date'))} *</label>
+            <input class="input" id="ap-date" type="date" value="${dt.date}" /></div>
+          <div class="field"><label>${esc(t('time'))}</label>
+            <input class="input" id="ap-time" type="time" value="${dt.time}" /></div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn ghost" data-close>${esc(t('cancel'))}</button>
+        <button class="btn money" id="ap-save">${ic.check}<span>${esc(t('save'))}</span></button>
+      </div>`;
+
+    const overlay = openModal(html);
+    const saveHtml = `${ic.check}<span>${esc(t('save'))}</span>`;
+
+    overlay.querySelectorAll('#ap-dir .seg-btn').forEach(b => b.addEventListener('click', () => {
+      direction = b.dataset.dir;
+      overlay.querySelectorAll('#ap-dir .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+    }));
+
+    // Search existing clients while typing
+    const clientInput = $('#ap-client', overlay), suggest = $('#ap-suggest', overlay);
+    clientInput.addEventListener('input', () => {
+      selectedClientId = null;
+      const q = clientInput.value.trim().toLowerCase();
+      if (!q) { suggest.classList.add('hidden'); return; }
+      const qd = q.replace(/\D/g, '');
+      const matches = state.clients.filter(c =>
+        c.fullName.toLowerCase().includes(q) ||
+        (c.phone || '').toLowerCase().includes(q) ||
+        (qd && (c.phone || '').replace(/\D/g, '').includes(qd))
+      ).slice(0, 6);
+      if (!matches.length) { suggest.classList.add('hidden'); return; }
+      suggest.innerHTML = matches.map(c => `
+        <div class="sg-item" data-cid="${c.id}">
+          <div class="avatar sm">${esc(initials(c.fullName))}</div>
+          <div><div class="sg-name">${esc(c.fullName)}</div>
+            <div class="sg-sub">${esc(c.phone || '—')} · ${esc(t('rest'))} : ${money(clientRest(c))}</div></div>
+        </div>`).join('');
+      suggest.classList.remove('hidden');
+      suggest.querySelectorAll('.sg-item').forEach(el => el.addEventListener('click', () => {
+        selectedClientId = el.dataset.cid;
+        const c = getClient(selectedClientId);
+        clientInput.value = c ? c.fullName : '';
+        suggest.classList.add('hidden');
+      }));
+    });
+
+    $('#ap-save', overlay).addEventListener('click', async () => {
+      const title = $('#ap-title', overlay).value.trim();
+      const desc = $('#ap-desc', overlay).value.trim();
+      const dateVal = $('#ap-date', overlay).value;
+      const timeVal = $('#ap-time', overlay).value;
+      const errBox = $('#ap-err', overlay);
+      if (!title) { errBox.innerHTML = `<div class="form-err">${esc(t('errApptName'))}</div>`; return; }
+      if (!dateVal) { errBox.innerHTML = `<div class="form-err">${esc(t('errApptDate'))}</div>`; return; }
+      const [yr, mo, dy] = dateVal.split('-').map(Number);
+      const [hr, mn] = (timeVal || '09:00').split(':').map(Number);
+      const scheduledAt = new Date(yr, mo - 1, dy, hr, mn).toISOString();
+      const btn = $('#ap-save', overlay); setBusyBtn(btn, true);
+      try {
+        if (editing) await backend().updateAppointment(id, { title, description: desc, direction, scheduledAt, clientId: selectedClientId });
+        else await backend().createAppointment({ title, description: desc, direction, scheduledAt, clientId: selectedClientId });
+        closeModal(overlay); rerenderCurrentView(); toast(t('apptSaved'), 'success');
+      } catch (e) { setBusyBtn(btn, false, saveHtml); errBox.innerHTML = `<div class="form-err">${esc(t('errServer'))}</div>`; }
+    });
+  }
+
+  function openDeleteApptModal(id) {
+    const a = getAppt(id); if (!a) return;
+    const html = `
+      ${modalHead('trash', 'var(--g-danger)', t('confirmDeleteAppt'), t('confirmDeleteSub'))}
+      <div class="modal-body">
+        <p style="font-size:15px;line-height:1.6">${esc(t('deleteMsg'))} <b>${esc(a.title)}</b> ?</p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn ghost" data-close>${esc(t('keepIt'))}</button>
+        <button class="btn danger" id="ap-del-confirm">${ic.trash}<span>${esc(t('yesDelete'))}</span></button>
+      </div>`;
+    const overlay = openModal(html, { size: 'narrow' });
+    const delHtml = `${ic.trash}<span>${esc(t('yesDelete'))}</span>`;
+    $('#ap-del-confirm', overlay).addEventListener('click', async () => {
+      const btn = $('#ap-del-confirm', overlay); setBusyBtn(btn, true);
+      try { await backend().deleteAppointment(id); closeModal(overlay); rerenderCurrentView(); toast(t('apptDeleted'), 'info'); }
+      catch (e) { setBusyBtn(btn, false, delHtml); toast(t('errServer'), 'err'); }
+    });
   }
 
   /* ---------------------------------------------------------
