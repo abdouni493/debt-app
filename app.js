@@ -100,6 +100,7 @@
       clientCreated: 'Client créé avec succès', clientUpdated: 'Client mis à jour',
       clientDeleted: 'Client supprimé', paymentSaved: 'Paiement enregistré',
       settingsSaved: 'Paramètres enregistrés', accountCreated: 'Compte créé, bienvenue !',
+      exportData: 'Exporter les données', restoreData: 'Restaurer les données', restoreNote: 'L’import remplace les données locales actuelles.', restoreSuccess: 'Données restaurées avec succès', restoreError: 'Fichier de sauvegarde invalide', restoreOnlyDemo: 'La restauration est disponible uniquement en mode démonstration.',
       loggedOut: 'Vous êtes déconnecté', loading: 'Chargement...',
       checkEmail: 'Compte créé. Vérifiez votre e-mail pour confirmer la connexion.',
       errRequired: 'Veuillez remplir tous les champs obligatoires',
@@ -224,6 +225,7 @@
       clientCreated: 'تم إنشاء العميل بنجاح', clientUpdated: 'تم تحديث العميل',
       clientDeleted: 'تم حذف العميل', paymentSaved: 'تم تسجيل الدفعة',
       settingsSaved: 'تم حفظ الإعدادات', accountCreated: 'تم إنشاء الحساب، مرحباً بك!',
+      exportData: 'تصدير البيانات', restoreData: 'استعادة البيانات', restoreNote: 'سيحل الاستيراد محل البيانات المحلية الحالية.', restoreSuccess: 'تمت استعادة البيانات بنجاح', restoreError: 'ملف النسخ الاحتياطي غير صالح', restoreOnlyDemo: 'الاستعادة متاحة فقط في وضع العرض التوضيحي.',
       loggedOut: 'تم تسجيل الخروج', loading: 'جارٍ التحميل...',
       checkEmail: 'تم إنشاء الحساب. تحقق من بريدك الإلكتروني لتأكيد الدخول.',
       errRequired: 'يرجى ملء جميع الحقول المطلوبة',
@@ -2323,6 +2325,14 @@
         <div class="field"><label>${esc(t('newPassword'))}</label><input class="input" id="set-password" type="password" placeholder="••••••••" /></div>
         <button class="btn violet block" id="set-save-login">${ic.lock}<span>${esc(t('changePassword'))}</span></button>
       </div>
+      <div class="settings-card">
+        <h3><span class="mini-icon" style="background:var(--g-debt)">${ic.box}</span>${esc(t('exportData'))}</h3>
+        <div id="set-err-3"></div>
+        <div class="field"><button class="btn money block" id="set-export-data">${ic.box}<span>${esc(t('exportData'))}</span></button></div>
+        <div class="field"><label>${esc(t('restoreData'))}</label><input class="input" id="set-restore-file" type="file" accept=".json" /></div>
+        <button class="btn violet block" id="set-restore-data">${ic.check}<span>${esc(t('restoreData'))}</span></button>
+        <p class="text-muted small">${esc(t('restoreNote'))}</p>
+      </div>
     </div></div>`;
   }
   function bindSettings() {
@@ -2342,6 +2352,92 @@
       try { await backend().updateProfile({ username, password: password || undefined }); renderShell(); toast(t('settingsSaved'), 'success'); }
       catch (e) { setBusyBtn(btn, false, h); err.innerHTML = `<div class="form-err">${esc(t('errServer'))}</div>`; }
     });
+
+    const exportBtn = $('#set-export-data');
+    if (exportBtn) { exportBtn.addEventListener('click', () => downloadBackup(backupPayload())); }
+
+    const restoreBtn = $('#set-restore-data');
+    if (restoreBtn) {
+      restoreBtn.addEventListener('click', async () => {
+        const err = $('#set-err-3'); if (err) err.innerHTML = '';
+        if (!state.demo) {
+          if (err) err.innerHTML = `<div class="form-err">${esc(t('restoreOnlyDemo'))}</div>`;
+          return;
+        }
+        const input = $('#set-restore-file');
+        if (!input || !input.files || !input.files[0]) {
+          if (err) err.innerHTML = `<div class="form-err">${esc(t('errRequired'))}</div>`;
+          return;
+        }
+        const btn = restoreBtn; const h = btn.innerHTML; setBusyBtn(btn, true);
+        try {
+          const raw = await readFileAsText(input.files[0]);
+          const payload = JSON.parse(raw);
+          restoreDemoBackup(payload);
+          input.value = '';
+          toast(t('restoreSuccess'), 'success');
+        } catch (e) {
+          if (err) err.innerHTML = `<div class="form-err">${esc(t('restoreError'))}</div>`;
+        } finally {
+          setBusyBtn(btn, false, h);
+        }
+      });
+    }
+  }
+
+  function backupPayload() {
+    return { version: 1, exportedAt: new Date().toISOString(), clients: state.clients, appointments: state.appointments };
+  }
+
+  function downloadBackup(payload) {
+    const json = JSON.stringify(payload, null, 2);
+    const fileName = `gestdette-backup-${new Date().toISOString().slice(0,19).replace(/[:T]/g, '-')}.json`;
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function readFileAsText(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsText(file);
+    });
+  }
+
+  function restoreDemoBackup(payload) {
+    if (!payload || !Array.isArray(payload.clients)) throw new Error('invalid backup');
+    state.clients = payload.clients.map(c => ({
+      id: c.id || uid(),
+      fullName: c.fullName || c.full_name || '',
+      phone: c.phone || '',
+      address: c.address || '',
+      createdAt: c.createdAt || c.created_at || new Date().toISOString(),
+      apptEnabled: !!c.apptEnabled,
+      apptMode: c.apptMode || 'interval',
+      apptIntervalDays: Number(c.apptIntervalDays) || 30,
+      apptDayOfMonth: Number(c.apptDayOfMonth) || 1,
+      products: Array.isArray(c.products) ? c.products.map(p => ({ id: p.id || uid(), name: p.name || '', description: p.description || '', price: Number(p.price) || 0 })) : [],
+      payments: Array.isArray(c.payments) ? c.payments.map(p => ({ id: p.id || uid(), amount: Number(p.amount) || 0, type: p.type || 'payment', date: p.date || p.createdAt || new Date().toISOString() })) : [],
+    }));
+    state.appointments = Array.isArray(payload.appointments) ? payload.appointments.map(a => ({
+      id: a.id || uid(),
+      clientId: a.clientId || a.client_id || null,
+      title: a.title || '',
+      description: a.description || '',
+      direction: a.direction || 'collect',
+      scheduledAt: a.scheduledAt || a.scheduled_at || new Date().toISOString(),
+      status: a.status || 'pending',
+      createdAt: a.createdAt || a.created_at || new Date().toISOString(),
+    })) : [];
+    sortClients();
+    render();
   }
 
   /* ---------------------------------------------------------
