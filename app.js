@@ -98,7 +98,8 @@
       deleteMsg: 'Voulez-vous vraiment supprimer', deleteWarn: 'Toutes ses données et son historique de paiements seront perdus.',
       yesDelete: 'Oui, supprimer', keepIt: 'Annuler',
       clientCreated: 'Client créé avec succès', clientUpdated: 'Client mis à jour',
-      clientDeleted: 'Client supprimé', paymentSaved: 'Paiement enregistré',
+      clientDeleted: 'Client supprimé', paymentSaved: 'Paiement enregistré', paymentDeleted: 'Paiement supprimé',
+      deletePaymentConfirm: 'Supprimer ce paiement ?', deletePaymentWarn: 'Cette action est irréversible.',
       settingsSaved: 'Paramètres enregistrés', accountCreated: 'Compte créé, bienvenue !',
       exportData: 'Exporter les données', restoreData: 'Restaurer les données', restoreNote: 'L’import remplace les données locales actuelles.', restoreSuccess: 'Données restaurées avec succès', restoreError: 'Fichier de sauvegarde invalide', restoreOnlyDemo: 'La restauration est disponible uniquement en mode démonstration.',
       loggedOut: 'Vous êtes déconnecté', loading: 'Chargement...',
@@ -223,7 +224,8 @@
       deleteMsg: 'هل تريد فعلاً حذف', deleteWarn: 'سيتم فقدان جميع بياناته وسجل مدفوعاته.',
       yesDelete: 'نعم، احذف', keepIt: 'إلغاء',
       clientCreated: 'تم إنشاء العميل بنجاح', clientUpdated: 'تم تحديث العميل',
-      clientDeleted: 'تم حذف العميل', paymentSaved: 'تم تسجيل الدفعة',
+      clientDeleted: 'تم حذف العميل', paymentSaved: 'تم تسجيل الدفعة', paymentDeleted: 'تم حذف الدفعة',
+      deletePaymentConfirm: 'حذف هذه الدفعة؟', deletePaymentWarn: 'هذا الإجراء لا يمكن التراجع عنه.'
       settingsSaved: 'تم حفظ الإعدادات', accountCreated: 'تم إنشاء الحساب، مرحباً بك!',
       exportData: 'تصدير البيانات', restoreData: 'استعادة البيانات', restoreNote: 'سيحل الاستيراد محل البيانات المحلية الحالية.', restoreSuccess: 'تمت استعادة البيانات بنجاح', restoreError: 'ملف النسخ الاحتياطي غير صالح', restoreOnlyDemo: 'الاستعادة متاحة فقط في وضع العرض التوضيحي.',
       loggedOut: 'تم تسجيل الخروج', loading: 'جارٍ التحميل...',
@@ -510,6 +512,7 @@
   const Local = {
     async load() {
       if (!state.clients.length) state.clients = seedClients();
+      sortClients();
       if (!state.appointments.length) state.appointments = seedAppointments();
     },
     async createClient(d) {
@@ -539,6 +542,10 @@
       const c = getClient(id); if (!c) return;
       c.payments = c.payments || [];
       c.payments.push({ id: uid(), amount, type: 'payment', date: date || new Date().toISOString() });
+    },
+    async deletePayment(clientId, paymentId) {
+      const c = getClient(clientId); if (!c) return;
+      c.payments = (c.payments || []).filter(p => p.id !== paymentId);
     },
     async createAppointment(d) {
       state.appointments.unshift({ id: uid(), clientId: d.clientId || null, title: d.title, description: d.description || '',
@@ -750,6 +757,15 @@
           type: pay.type,
           date: pay.created_at
         });
+      }
+    },
+    async deletePayment(clientId, paymentId) {
+      const s = getSb();
+      const { error } = await s.from('payments').delete().eq('id', paymentId);
+      if (error) throw error;
+      const c = getClient(clientId);
+      if (c) {
+        c.payments = (c.payments || []).filter(p => p.id !== paymentId);
       }
     },
     async updateProfile(p) {
@@ -1309,6 +1325,7 @@
       filtered = filtered.filter(c => inR(c.createdAt) || (c.payments || []).some(p => inR(p.date)));
     }
 
+    filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     return filtered;
   }
 
@@ -1815,7 +1832,9 @@
           <span class="tag ${isInit ? 'violet' : 'green'}">${esc(isInit ? t('initialPaymentLabel') : t('paymentLabel'))}</span></span>
           <span class="tl-amount">+${money(p.amount)}</span></div>
         <div class="tl-date">${ic.clock}${esc(fmtDateTime(p.date))}</div>
-      </div></div>`;
+      </div>
+      <button class="btn-del" data-payment-id="${p.id}" title="${esc(t('delete'))}" style="cursor:pointer;border:none;background:transparent;color:var(--g-gray-500);padding:6px;font-size:16px;">${ic.trash}</button>
+    </div>`;
   }
 
   /* ---------------------------------------------------------
@@ -1912,6 +1931,40 @@
     const overlay = openModal(html);
     const payBtn = $('#h-pay', overlay);
     if (payBtn && !cleared) payBtn.addEventListener('click', () => { closeModal(overlay); setTimeout(() => openPaymentModal(id), 160); });
+    
+    // Add delete payment handlers
+    overlay.querySelectorAll('.btn-del').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const paymentId = btn.dataset.paymentId;
+        const payment = payments.find(p => p.id === paymentId);
+        if (!payment) return;
+        const confirmHtml = `
+          ${modalHead('trash', 'var(--g-red)', t('deletePaymentConfirm'), '')}
+          <div class="modal-body">
+            <p style="margin:16px 0">${esc(payment.type === 'initial' ? t('initialPaymentLabel') : t('paymentLabel'))}: <strong>${money(payment.amount)}</strong></p>
+            <p style="margin:16px 0;color:var(--g-gray-600)">${esc(t('deletePaymentWarn'))}</p>
+          </div>
+          <div class="modal-foot">
+            <button class="btn ghost" data-close>${esc(t('keepIt'))}</button>
+            <button class="btn danger" id="confirm-del-pay">${ic.trash}<span>${esc(t('yesDelete'))}</span></button>
+          </div>`;
+        const confirmOverlay = openModal(confirmHtml);
+        $('#confirm-del-pay', confirmOverlay).addEventListener('click', async () => {
+          try {
+            setBusyBtn($('#confirm-del-pay', confirmOverlay), true);
+            await backend().deletePayment(id, paymentId);
+            closeModal(confirmOverlay);
+            closeModal(overlay);
+            rerenderCurrentView();
+            toast(t('paymentDeleted'), 'info');
+          } catch (e) {
+            setBusyBtn($('#confirm-del-pay', confirmOverlay), false);
+            console.error('Error deleting payment:', e);
+          }
+        });
+      });
+    });
   }
 
   /* ---------------------------------------------------------
