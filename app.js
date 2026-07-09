@@ -225,7 +225,7 @@
       yesDelete: 'نعم، احذف', keepIt: 'إلغاء',
       clientCreated: 'تم إنشاء العميل بنجاح', clientUpdated: 'تم تحديث العميل',
       clientDeleted: 'تم حذف العميل', paymentSaved: 'تم تسجيل الدفعة', paymentDeleted: 'تم حذف الدفعة',
-      deletePaymentConfirm: 'حذف هذه الدفعة؟', deletePaymentWarn: 'هذا الإجراء لا يمكن التراجع عنه.'
+      deletePaymentConfirm: 'حذف هذه الدفعة؟', deletePaymentWarn: 'هذا الإجراء لا يمكن التراجع عنه.',
       settingsSaved: 'تم حفظ الإعدادات', accountCreated: 'تم إنشاء الحساب، مرحباً بك!',
       exportData: 'تصدير البيانات', restoreData: 'استعادة البيانات', restoreNote: 'سيحل الاستيراد محل البيانات المحلية الحالية.', restoreSuccess: 'تمت استعادة البيانات بنجاح', restoreError: 'ملف النسخ الاحتياطي غير صالح', restoreOnlyDemo: 'الاستعادة متاحة فقط في وضع العرض التوضيحي.',
       loggedOut: 'تم تسجيل الخروج', loading: 'جارٍ التحميل...',
