@@ -325,7 +325,6 @@
     user: null,
     demo: false,
     clients: [],
-    adminExists: null,
     view: 'dashboard',
     search: '',
     filterStatus: 'all',
@@ -333,7 +332,6 @@
     periodStart: '',
     periodEnd: '',
     appointments: [],
-    authMode: 'login',
     sidebarOpen: false,
     busy: false,
   };
@@ -827,28 +825,19 @@
   }
 
   function renderAuth() {
-    const canRegister = state.adminExists === false;   // only before first admin
-    const isLogin = state.authMode === 'login' || !canRegister;
     appEl().innerHTML = `
       <div class="auth-wrap">
         <div class="auth-card">
           ${langSwitchHTML()}
           <div class="brand-logo">${ic.wallet}</div>
           <div class="auth-title">${esc(t('appName'))}</div>
-          <div class="auth-sub">${esc(isLogin ? t('signInSub') : t('createAccountSub'))}</div>
-
-          ${canRegister ? `
-          <div class="auth-tabs">
-            <div class="tab-glider" style="transform: translateX(${isLogin ? '0' : '100%'})"></div>
-            <button data-mode="login" class="${isLogin ? 'active' : ''}">${esc(t('login'))}</button>
-            <button data-mode="register" class="${!isLogin ? 'active' : ''}">${esc(t('register'))}</button>
-          </div>` : (state.adminExists === true ? `<div class="admin-note">${ic.lock}<span>${esc(t('adminExistsNote'))}</span></div>` : '')}
+          <div class="auth-sub">${esc(t('signInSub'))}</div>
 
           <div id="auth-err"></div>
           <form id="auth-form" autocomplete="off">
-            ${isLogin ? loginFields() : registerFields()}
+            ${loginFields()}
             <button type="submit" class="btn block lg" id="auth-submit" style="margin-top:6px">
-              ${ic.check}<span>${esc(isLogin ? t('loginBtn') : t('registerBtn'))}</span>
+              ${ic.check}<span>${esc(t('loginBtn'))}</span>
             </button>
           </form>
 
@@ -865,21 +854,6 @@
       <div class="field"><label>${esc(t('password'))}</label>
         <input class="input" name="password" type="password" placeholder="••••••••" /></div>`;
   }
-  function registerFields() {
-    return `
-      <div class="field"><label>${esc(t('fullName'))}</label>
-        <input class="input" name="fullName" placeholder="${esc(t('namePh'))}" /></div>
-      <div class="field"><label>${esc(t('username'))}</label>
-        <input class="input" name="username" placeholder="admin" /></div>
-      <div class="field"><label>${esc(t('email'))}</label>
-        <input class="input" name="email" type="email" placeholder="admin@boutique.com" /></div>
-      <div class="grid-2">
-        <div class="field"><label>${esc(t('password'))}</label>
-          <input class="input" name="password" type="password" placeholder="••••••••" /></div>
-        <div class="field"><label>${esc(t('confirmPassword'))}</label>
-          <input class="input" name="confirm" type="password" placeholder="••••••••" /></div>
-      </div>`;
-  }
   function authError(msg) { const b = $('#auth-err'); if (b) b.innerHTML = `<div class="form-err">${esc(msg)}</div>`; }
   function setSubmitting(on, labelKey) {
     const btn = $('#auth-submit'); if (!btn) return;
@@ -890,7 +864,6 @@
 
   function bindAuth() {
     document.querySelectorAll('.lang-switch button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
-    document.querySelectorAll('.auth-tabs button').forEach(b => b.addEventListener('click', () => { state.authMode = b.dataset.mode; renderAuth(); }));
     const demoBtn = $('#demo-btn');
     if (demoBtn) demoBtn.addEventListener('click', enterDemo);
     $('#auth-form').addEventListener('submit', onAuthSubmit);
@@ -899,44 +872,23 @@
   async function onAuthSubmit(e) {
     e.preventDefault();
     const f = e.target;
-    const isLogin = state.authMode === 'login' || state.adminExists !== false;
     const s = getSb();
     if (!s) return authError(t('errConfig'));
 
-    if (isLogin) {
-      const id = f.identifier.value.trim();
-      const pass = f.password.value;
-      if (!id || !pass) return authError(t('errRequired'));
-      setSubmitting(true, 'loginBtn');
-      try {
-        let email = id;
-        if (!id.includes('@')) {
-          const { data: em } = await s.rpc('get_email_by_username', { p_username: id });
-          if (em) email = em;
-        }
-        const { data, error } = await s.auth.signInWithPassword({ email: email.toLowerCase(), password: pass });
-        if (error) { setSubmitting(false, 'loginBtn'); return authError(t('errLogin')); }
-        await enterApp(data.session);
-      } catch (err) { setSubmitting(false, 'loginBtn'); authError(t('errServer')); }
-    } else {
-      const fullName = f.fullName.value.trim(), username = f.username.value.trim();
-      const email = f.email.value.trim(), pass = f.password.value, confirm = f.confirm.value;
-      if (!fullName || !username || !email || !pass) return authError(t('errRequired'));
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return authError(t('errEmail'));
-      if (pass.length < 6) return authError(t('errPassLen'));
-      if (pass !== confirm) return authError(t('errPassMatch'));
-      setSubmitting(true, 'registerBtn');
-      try {
-        const { data, error } = await s.auth.signUp({
-          email: email.toLowerCase(), password: pass,
-          options: { data: { full_name: fullName, username } },
-        });
-        if (error) { setSubmitting(false, 'registerBtn'); return authError(/already/i.test(error.message) ? t('errUserExists') : error.message); }
-        state.adminExists = true;               // hide the register button from now on
-        if (data.session) { await enterApp(data.session, t('accountCreated')); }
-        else { state.authMode = 'login'; renderAuth(); toast(t('checkEmail'), 'info'); }
-      } catch (err) { setSubmitting(false, 'registerBtn'); authError(t('errServer')); }
-    }
+    const id = f.identifier.value.trim();
+    const pass = f.password.value;
+    if (!id || !pass) return authError(t('errRequired'));
+    setSubmitting(true, 'loginBtn');
+    try {
+      let email = id;
+      if (!id.includes('@')) {
+        const { data: em } = await s.rpc('get_email_by_username', { p_username: id });
+        if (em) email = em;
+      }
+      const { data, error } = await s.auth.signInWithPassword({ email: email.toLowerCase(), password: pass });
+      if (error) { setSubmitting(false, 'loginBtn'); return authError(t('errLogin')); }
+      await enterApp(data.session);
+    } catch (err) { setSubmitting(false, 'loginBtn'); authError(t('errServer')); }
   }
 
   async function enterApp(session, welcomeMsg) {
@@ -975,17 +927,8 @@
   async function logout() {
     if (!state.demo) { const s = getSb(); if (s) { try { await s.auth.signOut(); } catch (e) {} } }
     state.demo = false; state.user = null; state.clients = []; state.appointments = [];
-    state.authMode = 'login';
-    await refreshAdminExists();
     render();
     toast(t('loggedOut'), 'info');
-  }
-
-  async function refreshAdminExists() {
-    const s = getSb();
-    if (!s) { state.adminExists = false; return; }
-    try { const { data, error } = await s.rpc('admin_exists'); state.adminExists = error ? false : !!data; }
-    catch (e) { state.adminExists = false; }
   }
 
   /* ---------------------------------------------------------
@@ -2518,10 +2461,7 @@
         const { data: { session } } = await s.auth.getSession();
         if (session) { await enterApp(session); return; }
       } catch (e) {}
-      await refreshAdminExists();
       hideLoader();
-    } else {
-      state.adminExists = false;
     }
     render();
   }

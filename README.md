@@ -4,8 +4,9 @@ A debt / seller management web app (FR + AR / RTL) for shops that sell on credit
 Static front-end (vanilla JS) backed by **Supabase** (Auth + Postgres). No build step.
 
 ## Features
-- Login + first-time **admin sign-up** (stored in Supabase Auth). The sign-up
-  option disappears automatically once an admin exists.
+- Login only (accounts live in Supabase Auth). There is **no sign-up in the app** —
+  create the admin user from the Supabase dashboard (**Authentication → Users →
+  Add user**).
 - **Offline demo account** (no server needed) to explore the UI.
 - Dashboard (total clients / debts / payments / outstanding).
 - Clients: create with products (name, description, price) + initial deposit,
@@ -17,9 +18,8 @@ Static front-end (vanilla JS) backed by **Supabase** (Auth + Postgres). No build
 
 ## 1. Set up Supabase (once)
 1. Open your project → **SQL Editor** → paste all of [`supabase.sql`](./supabase.sql) → **Run**.
-2. **Authentication → Providers → Email** → turn **OFF “Confirm email”**
-   so the admin can log in immediately after sign-up (optional — leave it on to
-   require e-mail confirmation).
+2. **Authentication → Users → Add user** → create the admin account (e-mail +
+   password, “Auto Confirm User” checked). The app has no sign-up screen.
 3. The connection keys are already filled in [`config.js`](./config.js)
    (URL + public anon key — safe to expose; Row Level Security protects data).
 
